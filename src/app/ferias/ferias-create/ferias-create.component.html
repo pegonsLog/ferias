@@ -1,0 +1,64 @@
+<mat-card>
+    <mat-card-content>
+      <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
+      <div>
+        <form [formGroup]="form"
+        (ngSubmit)="feriasAdd()">
+          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+            <mat-label>Matrícula</mat-label>
+            <mat-select formControlName="registration" style="font-family: Montserrat">
+              <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
+             {{registration.name}} - {{registration.registration}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+            <mat-label>Data do início</mat-label>
+            <input
+              style="font-family: Montserrat"
+              matInput
+              placeholder="Data de Início"
+              [inputMask]="dateInputMask"
+              type="text"
+              formControlName="startVacation"
+            />
+          </mat-form-field>
+  
+          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+            <mat-label>Data do término</mat-label>
+            <input
+              style="font-family: Montserrat"
+              matInput
+              placeholder="Data de término"
+              [inputMask]="dateInputMask"
+              type="text"
+              formControlName="endVacation"
+            />
+          </mat-form-field>
+          <mat-card-actions>
+            <div class="container">
+              <button
+                id="button-ferias"
+                name="ferias"
+                mat-raised-button
+                type="submit"
+              >
+                Salvar
+              </button>
+              <button
+                mat-raised-button
+                (click)="onClear()"
+                id="button-cancel"
+                name="cancelar"
+                type="button"
+              >
+                Limpar
+              </button>
+            </div>
+          </mat-card-actions>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

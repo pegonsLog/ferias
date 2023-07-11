@@ -1,0 +1,79 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Adicionar usuário</mat-toolbar>
+    <div>
+      <form [formGroup]="form" (submit)="addUser()" >
+        <mat-form-field class="full-width">
+          <mat-label>Matrícula</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Usuário"
+            type="text"
+            formControlName="username"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Nome</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Nome"
+            type="text"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Sexo</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="modo"
+            class="select"
+            aria-label="Sexo"
+            placeholder="Sexo"
+            formControlName="gender"
+          >
+            <mat-option selected value="Masculino"
+              >Masculino</mat-option
+            >
+            <mat-option value="Feminino">Feminino</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Senha</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Senha"
+            type="text"
+            formControlName="password"
+          />
+        </mat-form-field>
+
+        <mat-card-actions>
+          <div class="container">
+            <button
+              id="button-usuario"
+              name="usuario"
+              mat-raised-button
+              type="submit"
+            >
+              Salvar
+            </button>
+            <button
+              mat-raised-button
+              (click)="onClear()"
+              id="button-cancel"
+              name="cancelar"
+              type="button"
+            >
+              Limpar
+            </button>
+          </div>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

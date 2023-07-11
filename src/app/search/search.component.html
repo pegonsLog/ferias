@@ -1,0 +1,99 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Buscar</mat-toolbar>
+    <div>
+      <form>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label for="registration">Matrícula</mat-label>
+          <input
+          style="font-family: Montserrat"
+          id="registration"
+          matInput
+          placeholder="Matrícula"
+          type="text"
+          name="registration"
+          [(ngModel)]="registrationSearch"
+        />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label for="ano">Ano</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="ano"
+            class="select"
+            aria-label="Ano"
+            placeholder="Ano"
+            name="year"
+            [(ngModel)]="yearSearch"
+          >
+            <mat-option selected value="2023">2023</mat-option>
+            <mat-option selected value="2024">2024</mat-option>
+            <mat-option selected value="2025">2025</mat-option>
+            <mat-option selected value="2026">2026</mat-option>
+            <mat-option selected value="2027">2027</mat-option>
+            <mat-option selected value="2028">2028</mat-option>
+            <mat-option selected value="2029">2029</mat-option>
+            <mat-option selected value="2030">2030</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label for="tipo">Tipo do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="tipo"
+            class="select"
+            aria-label="Tipo do atestado"
+            placeholder="Tipo"
+            name="type"
+            [(ngModel)]="typeSearch"
+          >
+            <mat-option selected value="Atestado de dia">Dia</mat-option>
+            <mat-option selected value="Atestado de hora">Hora</mat-option>
+            <mat-option selected value="Atestado de doação">Doação</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true" *ngIf="typeSearch === 'Atestado de hora'">
+          <mat-label for="modo">Modo do atestado</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="modo"
+            class="select"
+            aria-label="Modo do atestado"
+            placeholder="Modo"
+            name="mode"
+            [(ngModel)]="modeSearch"
+          >
+            <mat-option selected value="Comparecimento"
+              >Comparecimento</mat-option
+            >
+            <mat-option selected value="Acompanhamento">Acompanhamento</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- <mat-card-actions> -->
+        <div class="container">
+          <button
+            (click)="onSearch(typeSearch)"
+            id="button-atestado"
+            name="atestado"
+            mat-raised-button
+          >
+            Buscar
+          </button>
+          <button
+            mat-raised-button
+            id="button-cancel"
+            name="cancelar"
+            type="button"
+            (click)="onClear()"
+          >
+            Limpar
+          </button>
+        </div>
+        <!-- </mat-card-actions> -->
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

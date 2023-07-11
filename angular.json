@@ -121,8 +121,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "ferias:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "dfd456ec-175e-4f63-886a-59e88ee723ed"
   }
 }

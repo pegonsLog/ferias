@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ferias-garbo": {
+      "hosting": {
+        "ferias": [
+          "ferias-garbo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ferias-garbo"
+  }
+}

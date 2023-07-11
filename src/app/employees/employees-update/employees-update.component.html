@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar id="peso-fonte">Alterar funcionário</mat-toolbar>
+    <div>
+      <form [formGroup]="form" (ngSubmit)="onUpdate()">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Matrícula</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Matrícula"
+            type="text"
+            formControlName="registration"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Nome</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Nome"
+            type="text"
+            formControlName="name"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Data de aniversário</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Aniversário"
+            type="text"
+            formControlName="birthday"
+          />
+        </mat-form-field>
+
+        <mat-card-actions>
+          <div class="container">
+            <button
+              id="button-funcionario"
+              name="usuario"
+              mat-raised-button
+              type="submit"
+            >
+              Salvar
+            </button>        
+          </div>
+        </mat-card-actions>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
