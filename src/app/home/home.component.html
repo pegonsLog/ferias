@@ -8,9 +8,9 @@
 
       <h5 class="mt-4">OPÇÕES</h5>
       <div id="align-list">
-        <mat-icon>calendar_month</mat-icon>
+        <mat-icon>beach_access</mat-icon>
         <a (click)="onDay(day)" routerLinkActive="list-item-active"
-          >ATESTADO DE DIA</a
+          >FÉRIAS</a
         >
       </div>
   
@@ -56,7 +56,7 @@
         <app-ferias-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-ferias-create>
       </div>
 
-      <div class="main" *ngIf="typeName === 'dayUpdate'">
+      <!-- <div class="main" *ngIf="typeName === 'dayUpdate'">
         <app-ferias-update
           [feriasUpdate]="feriasUpdate"
           (typeList)="onUpdateAllType($event)"
@@ -70,11 +70,11 @@
           (certificateEmit)="onUpdate($event)"
           style="width: 50%"
         ></app-day-list>
-      </div>
-
+      </div> -->
+<!-- 
       <div class="main" *ngIf="typeName === 'hourCreate'">
         <app-hour-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-hour-create>
-      </div>
+      </div> -->
 
       <div class="main" *ngIf="typeName === 'employeeCreate'">
         <app-employees-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-employees-create>

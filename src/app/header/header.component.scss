@@ -10,6 +10,7 @@ span {
 button {
   border: 0px;
   text-align: center;
+
 }
 
 mat-toolbar-row {
@@ -28,4 +29,7 @@ mat-icon{
 }
 #logout{
 padding: 0px;;
+}
+a{
+  cursor: pointer;
 }

@@ -175,16 +175,8 @@ export class HomeComponent {
     this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
     this.onType(employees);
   }
-  onDonation(donation: string) {
-    this.titleName = 'ATESTADO DE DOAÇÃO';
-    this.onType(donation);
-  }
-  onHour(hour: string) {
-    this.titleName = 'ATESTADO DE HORA';
-    this.onType(hour);
-  }
   onDay(day: string) {
-    this.titleName = 'ATESTADO DE DIA';
+    this.titleName = 'FÉRIAS';
     this.onType(day);
   }
   onUpdateAllType(main: string) {

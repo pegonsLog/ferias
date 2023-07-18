@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Ferias } from 'src/app/shared/models/ferias';
 
 @Component({
   selector: 'app-ferias-update',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./ferias-update.component.scss']
 })
 export class FeriasUpdateComponent {
+
+  feriasUpdate!: Ferias;
 
 }

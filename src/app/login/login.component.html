@@ -2,37 +2,39 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Controle de férias - GARBO</mat-toolbar>
     <div>
-        <mat-form-field class="full-width">
-          <input
-            matInput
-            placeholder="Usuário"
-            [(ngModel)] = "username"
-            inputmode="numeric"
-            type="text"
-            pattern="[0-9]*"
-          />
-        </mat-form-field>
+      <mat-form-field class="full-width">
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Usuário"
+          [(ngModel)]="username"
+          inputmode="numeric"
+          type="text"
+          pattern="[0-9]*"
+        />
+      </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input
-            matInput
-            placeholder="Senha"
-            [(ngModel)] = "password"
-            inputmode="numeric"
-            type="password"
-            pattern="[0-9]*"
-          />
-        </mat-form-field>
-        <mat-card-actions>
-          <button
-            id="button-atestado"
-            name="atestado"
-            mat-raised-button
-            (click)="authentication(username, password)"
-          >
-            LOGIN
-          </button>
-        </mat-card-actions>
+      <mat-form-field class="full-width">
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Senha"
+          [(ngModel)]="password"
+          inputmode="numeric"
+          type="password"
+          pattern="[0-9]*"
+        />
+      </mat-form-field>
+      <mat-card-actions>
+        <button
+          id="button-atestado"
+          name="atestado"
+          mat-raised-button
+          (click)="authentication(username, password)"
+        >
+          LOGIN
+        </button>
+      </mat-card-actions>
     </div>
   </mat-card-content>
 </mat-card>
