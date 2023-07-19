@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription, map } from 'rxjs';
-import { EmployeesService } from '../employees.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subscription, map } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Employee } from 'src/app/shared/models/employee';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-employees-list',
@@ -18,7 +17,7 @@ export class EmployeesListComponent {
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
   @Output() employeeEmit: EventEmitter<any> = new EventEmitter<string>();
 
-  displayedColumns: string[] = ['name', 'registration', 'actions'];
+  displayedColumns: string[] = ['name', 'registration', 'office', 'shift', 'admission', 'admission2', 'actions'];
   subscription: Subscription = new Subscription();
   dataSource$: Observable<any>;
 

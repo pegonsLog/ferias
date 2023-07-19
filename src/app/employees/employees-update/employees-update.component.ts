@@ -19,14 +19,20 @@ export class EmployeesUpdateComponent implements OnInit{
     id: '',
     registration: '',
     name: '',
-    birthday: '',
+    shift: '',
+    office: '',
+    admission: '',
+    admission2: ''
   };
 
   @Input() employeeUpdate: Employee = {
     id: '',
     registration: '',
     name: '',
-    birthday: '',
+    shift: '',
+    office: '',
+    admission: '',
+    admission2: ''
   };
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
@@ -52,11 +58,19 @@ export class EmployeesUpdateComponent implements OnInit{
       id: [this.employeeUpdate.id],
       registration: [this.employeeUpdate.registration, Validators.required],
       name: [this.employeeUpdate.name, Validators.required],
-      birthday: [this.employeeUpdate.birthday],
+      office: [this.employeeUpdate.office, Validators.required],
+      shift: [this.employeeUpdate.shift, Validators.required],
+      admission: [this.employeeUpdate.admission, Validators.required],
+      admission2: [this.employeeUpdate.admission2, Validators.required],
+ 
     });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onClear() {
+    this.form.reset();
   }
 }

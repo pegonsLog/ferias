@@ -27,7 +27,10 @@ export class EmployeesService {
     id: '',
     registration: '',
     name: '',
-    birthday: '',
+    shift: '',
+    office: '',
+    admission: '',
+    admission2: ''
   };
 
   constructor(private firestore: Firestore) {}
@@ -43,7 +46,7 @@ export class EmployeesService {
       .pipe(
         map((result: Employee[]) =>
           result.filter(
-            (data: Employee) => data.birthday.substring(3) === birthdayMonth
+            (data: Employee) => data.admission.substring(3) === birthdayMonth
           )
         )
       )

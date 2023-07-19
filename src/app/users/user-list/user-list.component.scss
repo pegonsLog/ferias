@@ -15,7 +15,9 @@
   }
 }
 
-th, td, .montserrat{
+th,
+td,
+.montserrat {
   font-family: Montserrat;
 }
 
@@ -33,4 +35,8 @@ th, td, .montserrat{
 a {
   padding-top: 8px;
   cursor: pointer;
+}
+mat-card {
+  margin-left: 14%;
+  width: 50%;
 }

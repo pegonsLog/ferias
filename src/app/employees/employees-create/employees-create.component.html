@@ -25,15 +25,47 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-label>Data de aniversário</mat-label>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Cargo</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
-            placeholder="Aniversário"
-            [inputMask]="dateInputMask"
+            placeholder="Cargo"
             type="text"
-            formControlName="birthday"
+            formControlName="office"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Turno</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Turno"
+            type="text"
+            formControlName="shift"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>Data de admissão</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="Data de admissão"
+            type="text"
+            formControlName="admission"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label>2ª Data de admissão</mat-label>
+          <input
+            style="font-family: Montserrat"
+            matInput
+            placeholder="2ª Data de admissão"
+            type="text"
+            formControlName="admission2"
           />
         </mat-form-field>
 

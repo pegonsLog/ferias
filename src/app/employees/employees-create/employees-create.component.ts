@@ -19,7 +19,10 @@ export class EmployeesCreateComponent {
     id: '',
     registration: '',
     name: '',
-    birthday: ''
+    office: '',
+    shift: '',
+    admission: '',
+    admission2: ''
   };
 
   dateInputMask = createMask<Date>({
@@ -45,7 +48,10 @@ export class EmployeesCreateComponent {
     this.form = this.fb.group({
       registration: ['', Validators.required],
       name: ['', Validators.required],
-      birthday: [''],
+      office: ['', Validators.required],
+      shift: ['', Validators.required],
+      admission: ['', Validators.required],
+      admission2: [''],
     });
   }
 
@@ -56,7 +62,10 @@ export class EmployeesCreateComponent {
   employeeAdd() {
     this.employee.registration = this.form.value.registration;
     this.employee.name = this.form.value.name;
-    this.employee.birthday = this.form.value.birthday;
+    this.employee.office = this.form.value.office;
+    this.employee.shift = this.form.value.shift;
+    this.employee.admission = this.form.value.admission;
+    this.employee.admission2 = this.form.value.admission2;
 
     return this.employeesService
       .employeeAdd(this.employee)

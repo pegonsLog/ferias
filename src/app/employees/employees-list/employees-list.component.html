@@ -19,10 +19,34 @@
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
-        <!-- Username Column -->
+        <!-- Registration Column -->
         <ng-container matColumnDef="registration">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</th>
           <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
+        </ng-container>
+
+        <!-- Office Column -->
+        <ng-container matColumnDef="office">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cargo</th>
+          <td mat-cell *matCellDef="let element">{{ element.office }}</td>
+        </ng-container>
+
+        <!-- Shift Column -->
+        <ng-container matColumnDef="shift">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Turno</th>
+          <td mat-cell *matCellDef="let element">{{ element.shift }}</td>
+        </ng-container>
+
+        <!-- Admission Column -->
+        <ng-container matColumnDef="admission">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Admissão</th>
+          <td mat-cell *matCellDef="let element">{{ element.admission }}</td>
+        </ng-container>
+
+        <!-- Admission2 Column -->
+        <ng-container matColumnDef="admission2">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>2º Admissão</th>
+          <td mat-cell *matCellDef="let element">{{ element.admission2 }}</td>
         </ng-container>
 
         <!-- Actions Column -->

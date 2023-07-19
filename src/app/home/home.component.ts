@@ -11,15 +11,9 @@ import { Ferias } from '../shared/models/ferias';
 })
 export class HomeComponent {
   menuName: string[] = [
-    'dayCreate',
-    'dayUpdate',
-    'dayList',
-    'hourCreate',
-    'hourUpdate',
-    'hourList',
-    'donationCreate',
-    'donationUpdate',
-    'donationList',
+    'vacationCreate',
+    'vacationUpdate',
+    'vacationList',
     'employeeCreate',
     'employeeUpdate',
     'employeeList',
@@ -28,7 +22,6 @@ export class HomeComponent {
     'userList',
     'search',
     'main',
-    'birthday'
   ];
 
   typeName: string = '';
@@ -39,14 +32,8 @@ export class HomeComponent {
   gender: string | null = '';
 
   @Input() registration: string = '';
-  @Input() year: string = '';
-  @Input() type: string = '';
-  @Input() mode: string = '';
 
   registrationSearch: string = '';
-  yearSearch: string = '';
-  modeSearch: string = '';
-  typeSearch: string = '';
   userUpdate: User = {
     id: '',
     username: '',
@@ -58,38 +45,30 @@ export class HomeComponent {
     id: '',
     registration: '',
     name: '',
-    birthday: '',
+    shift: '',
+    office: '',
+    admission: '',
+    admission2: '',
   };
   feriasUpdate: Ferias = {
     id: '',
     registration: '',
     startVacation: new Date(),
     endVacation: new Date(),
- 
   };
 
   searchList: any[] = [];
 
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
-  @Output() searchListDay: EventEmitter<any> = new EventEmitter<any>();
-  @Output() searchListHour: EventEmitter<any> = new EventEmitter<any>();
-  @Output() searchListDonation: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
 
-  day: string = 'dayCreate';
-  dayUpdate: string = 'dayUpdate';
-  dayList: string = 'dayList';
-  hour: string = 'hourCreate';
-  hourUpdate: string = 'hourUpdate';
-  hourList: string = 'hourList';
-  donation: string = 'donationCreate';
-  donationUpdate: string = 'donationUpdate';
-  donationList: string = 'donationList';
   employeeList: string = 'employeeList';
+  vacationList: string = 'vacationList';
+  vacationCreate: string = 'vacationCreate';
+  vacationUpdate: string = 'vacationUpdate';
   users: string = 'userList';
   search: string = 'search';
   main: string = 'main';
-  birthday: string = 'birthday';
 
   dataSource$: Observable<any> | undefined;
 
@@ -99,33 +78,6 @@ export class HomeComponent {
   }
 
   onType(type: any) {
-    if (this.menuName[0] === type) {
-      this.typeName = 'dayCreate';
-    }
-    if (this.menuName[1] === type) {
-      this.typeName = 'dayUpdate';
-    }
-    if (this.menuName[2] === type) {
-      this.typeName = 'dayList';
-    }
-    if (this.menuName[3] === type) {
-      this.typeName = 'hourCreate';
-    }
-    if (this.menuName[4] === type) {
-      this.typeName = 'hourUpdate';
-    }
-    if (this.menuName[5] === type) {
-      this.typeName = 'hourList';
-    }
-    if (this.menuName[6] === type) {
-      this.typeName = 'donationCreate';
-    }
-    if (this.menuName[7] === type) {
-      this.typeName = 'donationUpdate';
-    }
-    if (this.menuName[8] === type) {
-      this.typeName = 'donationList';
-    }
     if (this.menuName[9] === type) {
       this.typeName = 'employeeCreate';
     }
@@ -150,54 +102,41 @@ export class HomeComponent {
     if (this.menuName[16] === type) {
       this.typeName = 'main';
     }
-    if (this.menuName[17] === type) {
-      this.typeName = 'birthday';
-    }
   }
 
-  onYear(year: any) {
-    this.year = year;
-  }
-  onMode(mode: any) {
-    this.mode = mode;
-  }
   onRegistration(registration: string) {
     this.registration = registration;
   }
   onOpened() {
     this.isOpened = !this.isOpened;
   }
-  onListUsers(users: any) {
-    this.titleName = 'USUÁRIOS CADASTRADOS';
-    this.onType(users);
-  }
-  onListEmployees(employees: any) {
-    this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
-    this.onType(employees);
-  }
-  onDay(day: string) {
-    this.titleName = 'FÉRIAS';
-    this.onType(day);
-  }
   onUpdateAllType(main: string) {
     this.titleName = '';
     this.onType(main);
   }
-  onTypeList(typeList: any) {
-    this.titleName = 'LISTA DE ATESTADOS';
-    this.onType(typeList[4]);
-    this.registrationSearch = typeList[0];
-    this.yearSearch = typeList[1];
-    this.typeSearch = typeList[2];
-    this.modeSearch = typeList[3];
 
-    this.searchList = [
-      this.registrationSearch,
-      this.yearSearch,
-      this.typeSearch,
-      this.modeSearch,
-    ];
+  onVacationList(day: string) {
+    this.titleName = 'LISTA';
+    this.onType(day);
   }
+  onVacationCreate(day: string) {
+    this.titleName = 'FÉRIAS';
+    this.onType(day);
+  }
+  onVacationUpdate(event: any) {
+    this.userUpdate = event;
+  }
+
+  // onTypeList(typeList: any) {
+  //   this.titleName = 'LISTA DE ATESTADOS';
+  //   this.onType(typeList[4]);
+  //   this.registrationSearch = typeList[0];
+
+  //   this.searchList = [
+  //     this.registrationSearch,
+  //   ]
+  // }
+
   onSearch(search: string) {
     this.titleName = 'CONSULTA';
     this.onType(search);
@@ -205,14 +144,28 @@ export class HomeComponent {
   registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
   }
-  onUpdate(event: any) {
-    this.userUpdate = event;
+  
+
+  onEmployeesList(employees: any) {
+    this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
+    this.onType(employees);
   }
-  onUpdateEmployee(event: any) {
+  onEmployeesCreate(event: any) {
     this.employeeUpdate = event;
   }
-  onBirthday(birthday: any) {
-    this.titleName = 'ANIVERSARIANTES';
-    this.onType(birthday);
+  onEmployeesUpdate(event: any) {
+    this.employeeUpdate = event;
+  }
+
+
+  onUsersList(users: any) {
+    this.titleName = 'USUÁRIOS CADASTRADOS';
+    this.onType(users);
+  }
+  onUsersCreate(event: any) {
+    this.employeeUpdate = event;
+  }
+  onUsersUpdate(event: any) {
+    this.employeeUpdate = event;
   }
 }

@@ -9,7 +9,7 @@
       <h5 class="mt-4">OPÇÕES</h5>
       <div id="align-list">
         <mat-icon>beach_access</mat-icon>
-        <a (click)="onDay(day)" routerLinkActive="list-item-active"
+        <a (click)="onVacationCreate(vacationCreate)" routerLinkActive="list-item-active"
           >ADICIONAR FÉRIAS</a
         >
       </div>
@@ -21,7 +21,7 @@
       </div>
       <div id="align-list">
         <mat-icon>list_alt</mat-icon>
-        <a (click)="onDay(day)" routerLinkActive="list-item-active"
+        <a (click)="onVacationList(vacationList)" routerLinkActive="list-item-active"
           >FÉRIAS DO MÊS</a
         >
       </div>
@@ -29,14 +29,14 @@
       <div id="align-list">
         <mat-icon>group</mat-icon>
         <a
-          (click)="onListEmployees(employeeList)"
+          (click)="onEmployeesList(employeeList)"
           routerLinkActive="list-item-active"
           >FUNCIONÁRIOS</a
         >
       </div>
       <div id="align-list">
         <mat-icon> manage_accounts </mat-icon>
-        <a (click)="onListUsers(users)" routerLinkActive="list-item-active"
+        <a (click)="onUsersList(users)" routerLinkActive="list-item-active"
           >USUÁRIOS</a
         >
       </div>
@@ -64,26 +64,6 @@
         ></app-ferias-create>
       </div>
 
-      <!-- <div class="main" *ngIf="typeName === 'dayUpdate'">
-        <app-ferias-update
-          [feriasUpdate]="feriasUpdate"
-          (typeList)="onUpdateAllType($event)"
-          style="width: 50%"
-        ></app-ferias-update>
-      </div>
-      <div class="main" *ngIf="typeName === 'dayList'">
-        <app-day-list
-          [searchListDay]="searchList"
-          (type)="onType($event)"
-          (certificateEmit)="onUpdate($event)"
-          style="width: 50%"
-        ></app-day-list>
-      </div> -->
-      <!--
-      <div class="main" *ngIf="typeName === 'hourCreate'">
-        <app-hour-create (typeList)="onUpdateAllType($event)" style="width: 50%"></app-hour-create>
-      </div> -->
-
       <div class="main" *ngIf="typeName === 'employeeCreate'">
         <app-employees-create
           (typeList)="onUpdateAllType($event)"
@@ -93,14 +73,14 @@
       <div class="main" *ngIf="typeName === 'employeeUpdate'">
         <app-employees-update
           [employeeUpdate]="employeeUpdate"
-          (typeList)="onListEmployees($event)"
+          (typeList)="onEmployeesUpdate($event)"
           style="width: 50%"
         ></app-employees-update>
       </div>
       <div class="main" *ngIf="typeName === 'employeeList'">
         <app-employees-list
           (type)="onType($event)"
-          (employeeEmit)="onUpdateEmployee($event)"
+          (employeeEmit)="onEmployeesList($event)"
           style="width: 50%"
         ></app-employees-list>
       </div>
@@ -114,23 +94,23 @@
       <div class="main" *ngIf="typeName === 'userUpdate'">
         <app-user-update
           [userUpdate]="userUpdate"
-          (typeList)="onListUsers($event)"
+          (typeList)="onUsersList($event)"
           style="width: 50%"
         ></app-user-update>
       </div>
       <div class="main" *ngIf="typeName === 'userList'">
         <app-user-list
           (type)="onType($event)"
-          (userEmit)="onUpdate($event)"
+          (userEmit)="onVacationUpdate($event)"
           style="width: 50%"
         ></app-user-list>
       </div>
-      <div class="main" *ngIf="typeName === 'search'">
+      <!-- <div class="main" *ngIf="typeName === 'search'">
         <app-search
           (searchTypeName)="onTypeList($event)"
           style="width: 50%"
         ></app-search>
-      </div>
+      </div> -->
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
