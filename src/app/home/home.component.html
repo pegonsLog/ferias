@@ -58,10 +58,10 @@
       <div class="main" *ngIf="typeName === ''"></div>
       <div class="main" *ngIf="typeName === 'main'"></div>
       <div class="main" *ngIf="typeName === 'dayCreate'">
-        <app-ferias-create
+        <app-vacation-create
           (typeList)="onUpdateAllType($event)"
           style="width: 50%"
-        ></app-ferias-create>
+        ></app-vacation-create>
       </div>
 
       <div class="main" *ngIf="typeName === 'employeeCreate'">

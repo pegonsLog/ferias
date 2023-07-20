@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { Employee } from '../shared/models/employee';
-import { Ferias } from '../shared/models/ferias';
+import { Vacation } from '../shared/models/vacation';
 
 @Component({
   selector: 'app-home',
@@ -50,11 +50,13 @@ export class HomeComponent {
     admission: '',
     admission2: '',
   };
-  feriasUpdate: Ferias = {
+  vacation: Vacation = {
     id: '',
     registration: '',
-    startVacation: new Date(),
-    endVacation: new Date(),
+    startVacation: '',
+    endVacation: '',
+    intprop: '',
+    sell: ''
   };
 
   searchList: any[] = [];
@@ -144,7 +146,6 @@ export class HomeComponent {
   registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
   }
-  
 
   onEmployeesList(employees: any) {
     this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
@@ -156,7 +157,6 @@ export class HomeComponent {
   onEmployeesUpdate(event: any) {
     this.employeeUpdate = event;
   }
-
 
   onUsersList(users: any) {
     this.titleName = 'USUÁRIOS CADASTRADOS';

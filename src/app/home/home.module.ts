@@ -9,7 +9,7 @@ import { AngularMaterialModule } from '../shared/angular-material/angular-materi
 import { UserModule } from '../users/user.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { FeriasModule } from '../ferias/ferias.module';
+import { VacationModule } from '../vacation/vacation.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -19,7 +19,7 @@ import { FeriasModule } from '../ferias/ferias.module';
     AngularMaterialModule,
     HeaderModule,
     UserModule,
-    FeriasModule,
+    VacationModule,
     EmployeesModule,
     FormsModule,
     ReactiveFormsModule,

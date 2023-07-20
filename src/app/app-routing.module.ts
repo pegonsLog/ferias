@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'ferias',
     loadChildren: () =>
-      import('src/app/ferias/ferias.module').then((m) => m.FeriasModule),
+      import('src/app/vacation/vacation.module').then((m) => m.VacationModule),
   },
   {
     path: 'search',

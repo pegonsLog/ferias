@@ -3,7 +3,7 @@
       <mat-toolbar id="peso-fonte">Adicionar</mat-toolbar>
       <div>
         <form [formGroup]="form"
-        (ngSubmit)="feriasAdd()">
+        (ngSubmit)="vacationAdd()">
           <mat-form-field class="full-width" [hideRequiredMarker]="true">
             <mat-label>Matrícula</mat-label>
             <mat-select formControlName="registration" style="font-family: Montserrat">
@@ -12,7 +12,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-  
+
           <mat-form-field class="full-width" [hideRequiredMarker]="true">
             <mat-label>Data do início</mat-label>
             <input
@@ -24,7 +24,7 @@
               formControlName="startVacation"
             />
           </mat-form-field>
-  
+
           <mat-form-field class="full-width" [hideRequiredMarker]="true">
             <mat-label>Data do término</mat-label>
             <input
@@ -40,7 +40,7 @@
             <div class="container">
               <button
                 id="button-ferias"
-                name="ferias"
+                name="vacation"
                 mat-raised-button
                 type="submit"
               >
@@ -61,4 +61,3 @@
       </div>
     </mat-card-content>
   </mat-card>
-  

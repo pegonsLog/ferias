@@ -6,16 +6,16 @@ import { createMask } from '@ngneat/input-mask';
 import { Subscription, map } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
-import { FeriasService } from '../ferias.service';
+import { VacationService } from '../vacation.service';
 import { Employee } from 'src/app/shared/models/employee';
-import { Ferias } from 'src/app/shared/models/ferias';
+import { Vacation } from 'src/app/shared/models/vacation';
 
 @Component({
-  selector: 'app-ferias-create',
-  templateUrl: './ferias-create.component.html',
-  styleUrls: ['./ferias-create.component.scss']
+  selector: 'app-vacation-create',
+  templateUrl: './vacation-create.component.html',
+  styleUrls: ['./vacation-create.component.scss']
 })
-export class FeriasCreateComponent {
+export class VacationCreateComponent {
   form: FormGroup;
 
   registrations: Employee[] = [];
@@ -37,16 +37,18 @@ export class FeriasCreateComponent {
 
   dateInput: number = 0;
 
-  ferias: Ferias = {
+  vacation: Vacation = {
     id: '',
     registration: '',
-    startVacation: new Date(),
-    endVacation: new Date(),
+    startVacation: '',
+    endVacation: '',
+    intprop: '',
+    sell: ''
   };
 
   constructor(
     private fb: FormBuilder,
-    private feriasService: FeriasService,
+    private vacationService: VacationService,
     private employeesService: EmployeesService,
     public dialog: MatDialog
   ) {
@@ -60,6 +62,8 @@ export class FeriasCreateComponent {
       registration: ['', Validators.required],
       startVacation: ['', Validators.required],
       endVacation: ['', Validators.required],
+      intprop: ['', Validators.required],
+      sell: ['', Validators.required]
     });
   }
 
@@ -67,14 +71,14 @@ export class FeriasCreateComponent {
     this.form.reset();
   }
 
-  feriasAdd() {
+  vacationAdd() {
     this.dateInput = new Date(this.form.value.startDay).getFullYear();
 
-    this.ferias.registration = this.form.value.registration;
-    this.ferias.startVacation = this.form.value.startDay;
-    this.ferias.endVacation = this.form.value.endDay;
-    return this.feriasService
-      .feriasAdd(this.ferias)
+    this.vacation.registration = this.form.value.registration;
+    this.vacation.startVacation = this.form.value.startDay;
+    this.vacation.endVacation = this.form.value.endDay;
+    return this.vacationService
+      .vacationAdd(this.vacation)
       .then(() => {
         const dialogReference = this.dialog.open(DialogCreatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
