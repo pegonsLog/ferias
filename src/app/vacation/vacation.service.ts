@@ -19,8 +19,11 @@ export class VacationService {
     registration: '',
     startVacation: '',
     endVacation: '',
+    limit: '',
+    period: '',
     intprop: '',
-    sell: ''
+    sell: '',
+    observation: ''
   };
 
   constructor(private firestore: Firestore) {}

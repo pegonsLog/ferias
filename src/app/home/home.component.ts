@@ -55,14 +55,18 @@ export class HomeComponent {
     registration: '',
     startVacation: '',
     endVacation: '',
+    limit: '',
+    period: '',
     intprop: '',
-    sell: ''
+    sell: '',
+    observation: ''
   };
 
   searchList: any[] = [];
 
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
+  @Output() vacationCrud: EventEmitter<any> = new EventEmitter<any>();
 
   employeeList: string = 'employeeList';
   vacationList: string = 'vacationList';
@@ -80,28 +84,37 @@ export class HomeComponent {
   }
 
   onType(type: any) {
-    if (this.menuName[9] === type) {
+    if (this.menuName[0] === type) {
+      this.typeName = 'vacationCreate';
+    }
+    if (this.menuName[1] === type) {
+      this.typeName = 'vacationUpdate';
+    }
+    if (this.menuName[2] === type) {
+      this.typeName = 'vacationList';
+    }
+    if (this.menuName[3] === type) {
       this.typeName = 'employeeCreate';
     }
-    if (this.menuName[10] === type) {
+    if (this.menuName[4] === type) {
       this.typeName = 'employeeUpdate';
     }
-    if (this.menuName[11] === type) {
+    if (this.menuName[5] === type) {
       this.typeName = 'employeeList';
     }
-    if (this.menuName[12] === type) {
+    if (this.menuName[6] === type) {
       this.typeName = 'userCreate';
     }
-    if (this.menuName[13] === type) {
+    if (this.menuName[7] === type) {
       this.typeName = 'userUpdate';
     }
-    if (this.menuName[14] === type) {
+    if (this.menuName[8] === type) {
       this.typeName = 'userList';
     }
-    if (this.menuName[15] === type) {
+    if (this.menuName[9] === type) {
       this.typeName = 'search';
     }
-    if (this.menuName[16] === type) {
+    if (this.menuName[10] === type) {
       this.typeName = 'main';
     }
   }
@@ -117,27 +130,27 @@ export class HomeComponent {
     this.onType(main);
   }
 
-  onVacationList(day: string) {
+  onVacationList(vacationList: string) {
     this.titleName = 'LISTA';
-    this.onType(day);
+    this.onType(vacationList);
   }
-  onVacationCreate(day: string) {
+  onVacationCreate(vacationCreate: string) {
     this.titleName = 'FÉRIAS';
-    this.onType(day);
+    this.onType(vacationCreate);
   }
   onVacationUpdate(event: any) {
     this.userUpdate = event;
   }
 
-  // onTypeList(typeList: any) {
-  //   this.titleName = 'LISTA DE ATESTADOS';
-  //   this.onType(typeList[4]);
-  //   this.registrationSearch = typeList[0];
+  onTypeList(typeList: any) {
+    this.titleName = 'LISTA DE FÉRIAS';
+    this.onType(typeList[4]);
+    this.registrationSearch = typeList[0];
 
-  //   this.searchList = [
-  //     this.registrationSearch,
-  //   ]
-  // }
+    this.searchList = [
+      this.registrationSearch,
+    ]
+  }
 
   onSearch(search: string) {
     this.titleName = 'CONSULTA';

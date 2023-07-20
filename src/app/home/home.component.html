@@ -57,11 +57,23 @@
 
       <div class="main" *ngIf="typeName === ''"></div>
       <div class="main" *ngIf="typeName === 'main'"></div>
-      <div class="main" *ngIf="typeName === 'dayCreate'">
+      <div class="main" *ngIf="typeName === 'vacationCreate'">
         <app-vacation-create
-          (typeList)="onUpdateAllType($event)"
+          (typeList)="onVacationCreate($event)"
           style="width: 50%"
         ></app-vacation-create>
+      </div>
+      <div class="main" *ngIf="typeName === 'vacationUpdate'">
+        <app-vacation-update
+          (typeList)="onVacationUpdate($event)"
+          style="width: 50%"
+        ></app-vacation-update>
+      </div>
+      <div class="main" *ngIf="typeName === 'vacationList'">
+        <app-vacation-list
+        (type)="onType($event)"
+          style="width: 50%"
+        ></app-vacation-list>
       </div>
 
       <div class="main" *ngIf="typeName === 'employeeCreate'">
@@ -105,12 +117,12 @@
           style="width: 50%"
         ></app-user-list>
       </div>
-      <!-- <div class="main" *ngIf="typeName === 'search'">
+      <div class="main" *ngIf="typeName === 'search'">
         <app-search
           (searchTypeName)="onTypeList($event)"
           style="width: 50%"
         ></app-search>
-      </div> -->
+      </div>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

@@ -4,60 +4,113 @@
     <div>
       <form [formGroup]="form"
       (ngSubmit)="vacationUpdate()">
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Matrícula</mat-label>
-          <mat-select formControlName="registration" style="font-family: Montserrat">
-            <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
-           {{registration.name}} - {{registration.registration}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label>Matrícula</mat-label>
+        <mat-select formControlName="registration" style="font-family: Montserrat">
+          <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
+         {{registration.name}} - {{registration.registration}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Data do início</mat-label>
-          <input
-            style="font-family: Montserrat"
-            matInput
-            placeholder="Data de Início"
-            [inputMask]="dateInputMask"
-            type="text"
-            formControlName="startVacation"
-          />
-        </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label>Data do início</mat-label>
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Data de Início"
+          [inputMask]="dateInputMask"
+          type="text"
+          formControlName="startVacation"
+        />
+      </mat-form-field>
 
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
-          <mat-label>Data do término</mat-label>
-          <input
-            style="font-family: Montserrat"
-            matInput
-            placeholder="Data de término"
-            [inputMask]="dateInputMask"
-            type="text"
-            formControlName="endVacation"
-          />
-        </mat-form-field>
-        <mat-card-actions>
-          <div class="container">
-            <button
-              id="button-ferias"
-              name="vacation"
-              mat-raised-button
-              type="submit"
-            >
-              Salvar
-            </button>
-            <button
-              mat-raised-button
-              (click)="onClear()"
-              id="button-cancel"
-              name="cancelar"
-              type="button"
-            >
-              Limpar
-            </button>
-          </div>
-        </mat-card-actions>
-      </form>
-    </div>
-  </mat-card-content>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label>Data do término</mat-label>
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Data de término"
+          [inputMask]="dateInputMask"
+          type="text"
+          formControlName="endVacation"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label>Data limite</mat-label>
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Data limite"
+          [inputMask]="dateInputMask"
+          type="text"
+          formControlName="limit"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label>Período</mat-label>
+        <input
+          style="font-family: Montserrat"
+          matInput
+          placeholder="Período"
+          [inputMask]="dateInputMask"
+          type="text"
+          formControlName="period"
+        />
+      </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label for="sell">Vendeu 1/3?</mat-label>
+        <mat-select
+          style="font-family: Montserrat"
+          id="sell"
+          class="select"
+          aria-label="Vendeu 1/3?"
+          placeholder="Vendeu 1/3?"
+          name="sell"
+          formControlName="sell"
+        >
+          <mat-option selected value="Sim">Sim</mat-option>
+          <mat-option selected value="Não">Não</mat-option>        
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-label for="intprop">Int/Prop</mat-label>
+        <mat-select
+          style="font-family: Montserrat"
+          id="intprop"
+          class="select"
+          aria-label="Int/Prop"
+          placeholder="Int/Prop"
+          name="intprop"
+          formControlName="intprop"
+        >
+          <mat-option selected value="Int">Int</mat-option>
+          <mat-option selected value="Prop">Prop</mat-option>
+    
+        </mat-select>
+      </mat-form-field>
+      <mat-card-actions>
+        <div class="container">
+          <button
+            id="button-ferias"
+            name="vacation"
+            mat-raised-button
+            type="submit"
+          >
+            Salvar
+          </button>
+          <button
+            mat-raised-button
+            (click)="onClear()"
+            id="button-cancel"
+            name="cancelar"
+            type="button"
+          >
+            Limpar
+          </button>
+        </div>
+      </mat-card-actions>
+    </form>
+  </div>
+</mat-card-content>
 </mat-card>

@@ -17,6 +17,31 @@
         </mat-form-field>
 
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-label for="mes">Mês</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="mes"
+            class="select"
+            aria-label="Mês"
+            placeholder="Mês"
+            name="month"
+            [(ngModel)]="yearSearch"
+          >
+            <mat-option selected value="1">Janeiro</mat-option>
+            <mat-option selected value="2">Fevereiro</mat-option>
+            <mat-option selected value="3">Março</mat-option>
+            <mat-option selected value="4">Abril</mat-option>
+            <mat-option selected value="5">Maio</mat-option>
+            <mat-option selected value="6">Junho</mat-option>
+            <mat-option selected value="7">Julho</mat-option>
+            <mat-option selected value="8">Agosto</mat-option>
+            <mat-option selected value="9">Setembro</mat-option>
+            <mat-option selected value="10">Outubro</mat-option>
+            <mat-option selected value="11">Novembro</mat-option>
+            <mat-option selected value="12">Dezembro</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label for="ano">Ano</mat-label>
           <mat-select
             style="font-family: Montserrat"

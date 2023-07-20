@@ -42,8 +42,11 @@ export class VacationCreateComponent {
     registration: '',
     startVacation: '',
     endVacation: '',
+    limit: '',
+    period: '',
     intprop: '',
-    sell: ''
+    sell: '',
+    observation: ''
   };
 
   constructor(
@@ -62,8 +65,11 @@ export class VacationCreateComponent {
       registration: ['', Validators.required],
       startVacation: ['', Validators.required],
       endVacation: ['', Validators.required],
+      limit: [''],
+      period: ['', Validators.required],
       intprop: ['', Validators.required],
-      sell: ['', Validators.required]
+      sell: ['', Validators.required],
+      observation: ['', Validators.required]
     });
   }
 
@@ -77,6 +83,11 @@ export class VacationCreateComponent {
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startDay;
     this.vacation.endVacation = this.form.value.endDay;
+    this.vacation.limit = this.form.value.limit;
+    this.vacation.period = this.form.value.period;
+    this.vacation.intprop = this.form.value.intprop;
+    this.vacation.sell = this.form.value.sell;
+    this.vacation.observation = this.form.value.observation;
     return this.vacationService
       .vacationAdd(this.vacation)
       .then(() => {

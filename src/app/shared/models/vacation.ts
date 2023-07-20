@@ -3,6 +3,10 @@ export interface Vacation {
     registration: string;
     startVacation: string;
     endVacation: string;
+    limit: string;
+    period: string;
     intprop: string;
     sell: string;
+    observation: string;
+
 }

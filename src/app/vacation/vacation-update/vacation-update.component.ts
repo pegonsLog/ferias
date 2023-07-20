@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
 import { Subscription, map } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
-import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
+import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { Employee } from 'src/app/shared/models/employee';
 import { Vacation } from 'src/app/shared/models/vacation';
 import { VacationService } from '../vacation.service';
@@ -42,8 +42,11 @@ export class VacationUpdateComponent {
     registration: '',
     startVacation: '',
     endVacation: '',
+    limit: '',
+    period: '',
     intprop: '',
-    sell: ''
+    sell: '',
+    observation: ''
   };
 
   constructor(
@@ -62,6 +65,11 @@ export class VacationUpdateComponent {
       registration: ['', Validators.required],
       startVacation: ['', Validators.required],
       endVacation: ['', Validators.required],
+      limit: [''],
+      period: ['', Validators.required],
+      intprop: ['', Validators.required],
+      sell: ['', Validators.required],
+      observation: ['', Validators.required]
     });
   }
 
@@ -75,10 +83,15 @@ export class VacationUpdateComponent {
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startDay;
     this.vacation.endVacation = this.form.value.endDay;
+    this.vacation.limit = this.form.value.limit;
+    this.vacation.period = this.form.value.period;
+    this.vacation.intprop = this.form.value.intprop;
+    this.vacation.sell = this.form.value.sell;
+    this.vacation.observation = this.form.value.observation;
     return this.vacationService
-      .vacationAdd(this.vacation)
+      .update(this.vacation, this.vacation.id)
       .then(() => {
-        const dialogReference = this.dialog.open(DialogCreatedComponent);
+        const dialogReference = this.dialog.open(DialogUpdatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
         this.typeList.emit(this.main);
       })

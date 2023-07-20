@@ -1,5 +1,26 @@
 
+#peso-fonte {
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-family: Montserrat;
+  background: #1e293b;
+  letter-spacing: 0.1rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+a {
+  padding-top: 8px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+// #table-container{
+//   height: 470px;
+//   overflow: auto;
+// }
+
 mat-card {
-    margin-left: 14%;
-    width: 50%;
+    margin-left: 12%;
+    width: 70%;
   }
