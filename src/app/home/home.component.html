@@ -13,18 +13,27 @@
           >ADICIONAR FÉRIAS</a
         >
       </div>
+
+      <!--**************************************************************************-->
       <div id="align-list">
-        <mat-icon> manage_search </mat-icon>
-        <a (click)="onSearch(search)" routerLinkActive="list-item-active"
-          >CONSULTAR / ALTERAR</a
+        <mat-icon>perm_contact_calendar</mat-icon>
+        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
+          >FÉRIAS DO FUNCIONÁRIO</a
         >
       </div>
       <div id="align-list">
-        <mat-icon>list_alt</mat-icon>
-        <a (click)="onVacationList(vacationList)" routerLinkActive="list-item-active"
+        <mat-icon>date_range</mat-icon>
+        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
           >FÉRIAS DO MÊS</a
         >
       </div>
+      <div id="align-list">
+        <mat-icon>calendar_month</mat-icon>
+        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
+          >FÉRIAS DO ANO</a
+        >
+      </div>
+          <!--**************************************************************************-->
 
       <div id="align-list">
         <mat-icon>group</mat-icon>

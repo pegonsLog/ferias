@@ -5,15 +5,15 @@
         <form [formGroup]="form"
         (ngSubmit)="vacationAdd()">
           <mat-form-field class="full-width" [hideRequiredMarker]="true">
-            <mat-label>Matrícula</mat-label>
+            <mat-label>Funcionário</mat-label>
             <mat-select formControlName="registration" style="font-family: Montserrat">
               <mat-option *ngFor="let registration of registrations" [value]="registration.registration">
-             {{registration.name}} - {{registration.registration}}
+             {{registration.name}} - {{registration.registration}} - {{registration.admission}}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
             <mat-label>Data do início</mat-label>
             <input
               style="font-family: Montserrat"
@@ -25,7 +25,7 @@
             />
           </mat-form-field>
 
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width" [hideRequiredMarker]="true">
             <mat-label>Data do término</mat-label>
             <input
               style="font-family: Montserrat"
@@ -36,7 +36,7 @@
               formControlName="endVacation"
             />
           </mat-form-field>
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
             <mat-label>Data limite</mat-label>
             <input
               style="font-family: Montserrat"
@@ -47,7 +47,7 @@
               formControlName="limit"
             />
           </mat-form-field>
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width" [hideRequiredMarker]="true">
             <mat-label>Período</mat-label>
             <input
               style="font-family: Montserrat"
@@ -58,7 +58,7 @@
               formControlName="period"
             />
           </mat-form-field>
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
             <mat-label for="sell">Vendeu 1/3?</mat-label>
             <mat-select
               style="font-family: Montserrat"
@@ -73,7 +73,7 @@
               <mat-option selected value="Não">Não</mat-option>        
             </mat-select>
           </mat-form-field>
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="half-width" [hideRequiredMarker]="true">
             <mat-label for="intprop">Int/Prop</mat-label>
             <mat-select
               style="font-family: Montserrat"

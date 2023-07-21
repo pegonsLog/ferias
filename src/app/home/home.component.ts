@@ -30,7 +30,8 @@ export class HomeComponent {
   titleName: string | null = '';
   titleUser: string | null = '';
   gender: string | null = '';
-
+  typeCalendarSearch: boolean = false;
+  
   @Input() registration: string = '';
 
   registrationSearch: string = '';
@@ -59,7 +60,7 @@ export class HomeComponent {
     period: '',
     intprop: '',
     sell: '',
-    observation: ''
+    observation: '',
   };
 
   searchList: any[] = [];
@@ -147,14 +148,14 @@ export class HomeComponent {
     this.onType(typeList[4]);
     this.registrationSearch = typeList[0];
 
-    this.searchList = [
-      this.registrationSearch,
-    ]
+    this.searchList = [this.registrationSearch];
+    
   }
 
-  onSearch(search: string) {
+  onSearchEmployee() {
     this.titleName = 'CONSULTA';
-    this.onType(search);
+    this.typeName = 'search';
+    this.typeCalendarSearch = true;
   }
   registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
