@@ -17,12 +17,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnDestroy, OnChanges {
+
   registrationSearch: string = '';
   yearSearch: string = '';
-  typeSearch: string = '';
-  modeSearch: string = '';
-
-  searchType: string = '';
+  monthSearch: string = '';
 
   @Input() typeCalendarSearch: string | null | undefined;
   isEmployee: boolean = false;
@@ -45,45 +43,40 @@ export class SearchComponent implements OnDestroy, OnChanges {
   ngOnChanges(): void {
     if (this.typeCalendarSearch === 'FÉRIAS DO FUNCIONÁRIO') {
       this.isEmployee = true;
-      console.log(this.typeCalendarSearch);
+      this.isMonth = false;
+      this.isYear = false;
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO MÊS') {
       this.isMonth = true;
-      console.log(this.typeCalendarSearch);
+      this.isEmployee = false;
+      this.isYear = false;
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO ANO') {
       this.isYear = true;
-      console.log(this.typeCalendarSearch);
+      this.isMonth = false;
+      this.isEmployee = false;
     }
   }
 
-  onSearch(typeSearch: string) {
-    switch (typeSearch) {
-      case 'Atestado de dia':
-        this.searchType = 'dayList';
-        break;
-      case 'Atestado de hora':
-        this.searchType = 'hourList';
-        break;
-      case 'Atestado de doação':
-        this.searchType = 'donationList';
-        break;
+  onSearch() {
+    if (this.typeCalendarSearch === 'FÉRIAS DO FUNCIONÁRIO') {
+      this.monthSearch = ''
+      this.yearSearch = ''
+    }
+    if (this.typeCalendarSearch === 'FÉRIAS DO MÊS') {
+      this.registrationSearch = '' 
+    }
+    if (this.typeCalendarSearch === 'FÉRIAS DO ANO') {
+      this.monthSearch = ''
+      this.registrationSearch = ''
+
     }
 
     this.searchTypeName.emit([
       this.registrationSearch,
+      this.monthSearch,
       this.yearSearch,
-      this.typeSearch,
-      this.modeSearch,
-      this.searchType,
     ]);
-  }
-
-  onClear() {
-    this.registrationSearch = '';
-    this.yearSearch = '';
-    this.typeSearch = '';
-    this.modeSearch = '';
   }
 
   ngOnDestroy(): void {
