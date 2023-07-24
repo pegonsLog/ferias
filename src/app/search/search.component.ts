@@ -1,4 +1,12 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { EmployeesService } from '../employees/employees.service';
 import { Subscription } from 'rxjs';
@@ -8,13 +16,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnDestroy {
+export class SearchComponent implements OnDestroy, OnChanges {
   registrationSearch: string = '';
   yearSearch: string = '';
   typeSearch: string = '';
   modeSearch: string = '';
 
   searchType: string = '';
+
+  @Input() typeCalendarSearch: string | null | undefined;
+  isEmployee: boolean = false;
+  isMonth: boolean = false;
+  isYear: boolean = false;
 
   registrations: Employee[] = [];
 
@@ -25,14 +38,23 @@ export class SearchComponent implements OnDestroy {
   >();
 
   constructor(private employeesService: EmployeesService) {
-    this.registrationSearch = '';
-    this.yearSearch = '2023';
-    this.typeSearch = 'Atestado de dia';
-    this.modeSearch = '';
-
     this.subscription = this.employeesService
       .list()
       .subscribe((data: Employee[]) => (this.registrations = data));
+  }
+  ngOnChanges(): void {
+    if (this.typeCalendarSearch === 'FÉRIAS DO FUNCIONÁRIO') {
+      this.isEmployee = true;
+      console.log(this.typeCalendarSearch);
+    }
+    if (this.typeCalendarSearch === 'FÉRIAS DO MÊS') {
+      this.isMonth = true;
+      console.log(this.typeCalendarSearch);
+    }
+    if (this.typeCalendarSearch === 'FÉRIAS DO ANO') {
+      this.isYear = true;
+      console.log(this.typeCalendarSearch);
+    }
   }
 
   onSearch(typeSearch: string) {

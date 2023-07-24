@@ -1,21 +1,24 @@
 <mat-card>
   <mat-card-content>
     <mat-toolbar id="peso-fonte">Buscar</mat-toolbar>
-    <div>
-      <form>
+
+    <form>
+      <ng-template *ngIf="isEmployee">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label for="registration">Matrícula</mat-label>
           <input
-          style="font-family: Montserrat"
-          id="registration"
-          matInput
-          placeholder="Matrícula"
-          type="text"
-          name="registration"
-          [(ngModel)]="registrationSearch"
-        />
+            style="font-family: Montserrat"
+            id="registration"
+            matInput
+            placeholder="Matrícula"
+            type="text"
+            name="registration"
+            [(ngModel)]="registrationSearch"
+          />
         </mat-form-field>
+      </ng-template>
 
+      <ng-template *ngIf="isMonth">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label for="mes">Mês</mat-label>
           <mat-select
@@ -41,6 +44,8 @@
             <mat-option selected value="12">Dezembro</mat-option>
           </mat-select>
         </mat-form-field>
+      </ng-template>
+      <ng-template *ngIf="isYear">
         <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label for="ano">Ano</mat-label>
           <mat-select
@@ -62,29 +67,29 @@
             <mat-option selected value="2030">2030</mat-option>
           </mat-select>
         </mat-form-field>
+      </ng-template>
 
-        <!-- <mat-card-actions> -->
-        <div class="container">
-          <button
-            (click)="onSearch(typeSearch)"
-            id="button-atestado"
-            name="atestado"
-            mat-raised-button
-          >
-            Buscar
-          </button>
-          <button
-            mat-raised-button
-            id="button-cancel"
-            name="cancelar"
-            type="button"
-            (click)="onClear()"
-          >
-            Limpar
-          </button>
-        </div>
-        <!-- </mat-card-actions> -->
-      </form>
-    </div>
+      <!-- <mat-card-actions> -->
+      <div class="container">
+        <button
+          (click)="onSearch(typeSearch)"
+          id="button-atestado"
+          name="atestado"
+          mat-raised-button
+        >
+          Buscar
+        </button>
+        <button
+          mat-raised-button
+          id="button-cancel"
+          name="cancelar"
+          type="button"
+          (click)="onClear()"
+        >
+          Limpar
+        </button>
+      </div>
+      <!-- </mat-card-actions> -->
+    </form>
   </mat-card-content>
 </mat-card>

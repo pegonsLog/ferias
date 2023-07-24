@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { Employee } from '../shared/models/employee';
@@ -30,8 +30,8 @@ export class HomeComponent {
   titleName: string | null = '';
   titleUser: string | null = '';
   gender: string | null = '';
-  typeCalendarSearch: boolean = false;
-  
+  typeCalendarSearch: string | null | undefined;
+
   @Input() registration: string = '';
 
   registrationSearch: string = '';
@@ -79,7 +79,7 @@ export class HomeComponent {
 
   dataSource$: Observable<any> | undefined;
 
-  constructor() {
+  constructor(private readonly elementRef: ElementRef) {
     this.titleUser = localStorage.getItem('user');
     this.gender = localStorage.getItem('gender');
   }
@@ -135,10 +135,12 @@ export class HomeComponent {
     this.titleName = 'LISTA';
     this.onType(vacationList);
   }
+
   onVacationCreate(vacationCreate: string) {
     this.titleName = 'FÉRIAS';
     this.onType(vacationCreate);
   }
+  
   onVacationUpdate(event: any) {
     this.userUpdate = event;
   }
@@ -147,16 +149,27 @@ export class HomeComponent {
     this.titleName = 'LISTA DE FÉRIAS';
     this.onType(typeList[4]);
     this.registrationSearch = typeList[0];
-
     this.searchList = [this.registrationSearch];
-    
   }
 
   onSearchEmployee() {
-    this.titleName = 'CONSULTA';
+    this.titleName = 'CONSULTA POR FUNCIONÁRIO';
     this.typeName = 'search';
-    this.typeCalendarSearch = true;
+    this.typeCalendarSearch = document.querySelector('a[id="vacation_employee"]')?.textContent;
   }
+
+  onSearchMonth() {
+    this.titleName = 'CONSULTA POR MÊS';
+    this.typeName = 'search';
+    this.typeCalendarSearch = document.querySelector('a[id="vacation_month"]')?.textContent;
+  }
+
+  onSearchYear() {
+    this.titleName = 'CONSULTA POR ANO';
+    this.typeName = 'search';
+    this.typeCalendarSearch = document.querySelector('a[id="vacation_year"]')?.textContent;
+  }
+
   registrationOutput(registration: any) {
     this.registrationSearchList.emit(registration);
   }
@@ -165,9 +178,11 @@ export class HomeComponent {
     this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
     this.onType(employees);
   }
+
   onEmployeesCreate(event: any) {
     this.employeeUpdate = event;
   }
+
   onEmployeesUpdate(event: any) {
     this.employeeUpdate = event;
   }
@@ -176,9 +191,11 @@ export class HomeComponent {
     this.titleName = 'USUÁRIOS CADASTRADOS';
     this.onType(users);
   }
+
   onUsersCreate(event: any) {
     this.employeeUpdate = event;
   }
+
   onUsersUpdate(event: any) {
     this.employeeUpdate = event;
   }

@@ -9,7 +9,9 @@
       <h5 class="mt-4">OPÇÕES</h5>
       <div id="align-list">
         <mat-icon>beach_access</mat-icon>
-        <a (click)="onVacationCreate(vacationCreate)" routerLinkActive="list-item-active"
+        <a
+          (click)="onVacationCreate(vacationCreate)"
+          routerLinkActive="list-item-active"
           >ADICIONAR FÉRIAS</a
         >
       </div>
@@ -17,23 +19,32 @@
       <!--**************************************************************************-->
       <div id="align-list">
         <mat-icon>perm_contact_calendar</mat-icon>
-        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
+        <a
+          (click)="onSearchEmployee()"
+          routerLinkActive="list-item-active"
+          id="vacation_employee"
           >FÉRIAS DO FUNCIONÁRIO</a
         >
       </div>
       <div id="align-list">
         <mat-icon>date_range</mat-icon>
-        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
+        <a
+          (click)="onSearchMonth()"
+          routerLinkActive="list-item-active"
+          id="vacation_month"
           >FÉRIAS DO MÊS</a
         >
       </div>
       <div id="align-list">
         <mat-icon>calendar_month</mat-icon>
-        <a (click)="onSearchEmployee()" routerLinkActive="list-item-active"
+        <a
+          (click)="onSearchYear()"
+          routerLinkActive="list-item-active"
+          id="vacation_year"
           >FÉRIAS DO ANO</a
         >
       </div>
-          <!--**************************************************************************-->
+      <!--**************************************************************************-->
 
       <div id="align-list">
         <mat-icon>group</mat-icon>
@@ -80,7 +91,7 @@
       </div>
       <div class="main" *ngIf="typeName === 'vacationList'">
         <app-vacation-list
-        (type)="onType($event)"
+          (type)="onType($event)"
           style="width: 50%"
         ></app-vacation-list>
       </div>
@@ -128,6 +139,7 @@
       </div>
       <div class="main" *ngIf="typeName === 'search'">
         <app-search
+          [typeCalendarSearch]="typeCalendarSearch"
           (searchTypeName)="onTypeList($event)"
           style="width: 50%"
         ></app-search>
