@@ -17,10 +17,10 @@ export class VacationService {
   vacations: Vacation = {
     id: '',
     registration: '',
-    startVacation: '',
-    endVacation: '',
-    limit: '',
-    period: '',
+    startVacation: new Date(),
+    endVacation: new Date(),
+    limit: new Date(),
+    period: new Date(),
     intprop: '',
     sell: '',
     observation: ''
@@ -47,9 +47,9 @@ export class VacationService {
     return deleteDoc($vacationRef);
   }
 
-  vacationAdd(vacations: Vacation) {
+  vacationAdd(vacation: Vacation) {
     let $vacationRef = collection(this.db, 'vacations');
-    return addDoc($vacationRef, vacations);
+    return addDoc($vacationRef, vacation);
   }
 
   update(vacations: Vacation, id: string) {

@@ -35,15 +35,13 @@ export class VacationCreateComponent {
     },
   });
 
-  dateInput: number = 0;
-
   vacation: Vacation = {
     id: '',
     registration: '',
-    startVacation: '',
-    endVacation: '',
-    limit: '',
-    period: '',
+    startVacation: new Date(),
+    endVacation: new Date(),
+    limit: new Date(),
+    period: new Date(),
     intprop: '',
     sell: '',
     observation: ''
@@ -69,7 +67,7 @@ export class VacationCreateComponent {
       period: ['', Validators.required],
       intprop: ['', Validators.required],
       sell: ['', Validators.required],
-      observation: ['', Validators.required]
+      observation: ['']
     });
   }
 
@@ -77,12 +75,11 @@ export class VacationCreateComponent {
     this.form.reset();
   }
 
-  vacationAdd() {
-    this.dateInput = new Date(this.form.value.startDay).getFullYear();
+  async vacationAdd() {
 
     this.vacation.registration = this.form.value.registration;
-    this.vacation.startVacation = this.form.value.startDay;
-    this.vacation.endVacation = this.form.value.endDay;
+    this.vacation.startVacation = this.form.value.startVacation;
+    this.vacation.endVacation = this.form.value.endVacation;
     this.vacation.limit = this.form.value.limit;
     this.vacation.period = this.form.value.period;
     this.vacation.intprop = this.form.value.intprop;

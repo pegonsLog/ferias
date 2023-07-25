@@ -70,7 +70,7 @@
               formControlName="sell"
             >
               <mat-option selected value="Sim">Sim</mat-option>
-              <mat-option selected value="Não">Não</mat-option>        
+              <mat-option selected value="Não">Não</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="half-width" [hideRequiredMarker]="true">
@@ -86,8 +86,23 @@
             >
               <mat-option selected value="Int">Int</mat-option>
               <mat-option selected value="Prop">Prop</mat-option>
-        
+
             </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Observações</mat-label>
+            <textarea
+              style="font-family: Montserrat"
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              placeholder="Observações"
+              type="text"
+              formControlName="observation"
+            ></textarea>
           </mat-form-field>
           <mat-card-actions>
             <div class="container">

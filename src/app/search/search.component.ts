@@ -4,12 +4,11 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
-  Output,
+  Output
 } from '@angular/core';
-import { Employee } from '../shared/models/employee';
-import { EmployeesService } from '../employees/employees.service';
 import { Subscription } from 'rxjs';
+import { EmployeesService } from '../employees/employees.service';
+import { Employee } from '../shared/models/employee';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +16,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnDestroy, OnChanges {
-
   registrationSearch: string = '';
   yearSearch: string = '';
   monthSearch: string = '';
@@ -60,16 +58,15 @@ export class SearchComponent implements OnDestroy, OnChanges {
 
   onSearch() {
     if (this.typeCalendarSearch === 'FÉRIAS DO FUNCIONÁRIO') {
-      this.monthSearch = ''
-      this.yearSearch = ''
+      this.monthSearch = '';
+      this.yearSearch = '';
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO MÊS') {
-      this.registrationSearch = '' 
+      this.registrationSearch = '';
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO ANO') {
-      this.monthSearch = ''
-      this.registrationSearch = ''
-
+      this.monthSearch = '';
+      this.registrationSearch = '';
     }
 
     this.searchTypeName.emit([

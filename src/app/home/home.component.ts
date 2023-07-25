@@ -54,10 +54,10 @@ export class HomeComponent {
   vacation: Vacation = {
     id: '',
     registration: '',
-    startVacation: '',
-    endVacation: '',
-    limit: '',
-    period: '',
+    startVacation: new Date(),
+    endVacation: new Date(),
+    limit: new Date(),
+    period: new Date(),
     intprop: '',
     sell: '',
     observation: '',
@@ -140,7 +140,7 @@ export class HomeComponent {
     this.titleName = 'FÉRIAS';
     this.onType(vacationCreate);
   }
-  
+
   onVacationUpdate(event: any) {
     this.userUpdate = event;
   }
