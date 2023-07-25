@@ -67,7 +67,7 @@ export class HomeComponent {
 
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
-  @Output() vacationCrud: EventEmitter<any> = new EventEmitter<any>();
+  vacationCrud: string[] = [];
 
   employeeList: string = 'employeeList';
   vacationList: string = 'vacationList';
@@ -91,8 +91,10 @@ export class HomeComponent {
     if (this.menuName[1] === type) {
       this.typeName = 'vacationUpdate';
     }
-    if (this.menuName[2] === type) {
-      this.typeName = 'vacationList';
+    if (this.menuName[2] === type[3]) {
+      this.typeName = type[3];
+      this.vacationCrud = type;
+
     }
     if (this.menuName[3] === type) {
       this.typeName = 'employeeCreate';
@@ -131,7 +133,7 @@ export class HomeComponent {
     this.onType(main);
   }
 
-  onVacationList(vacationList: string) {
+  onVacationList(vacationList: any[]) {
     this.titleName = 'LISTA';
     this.onType(vacationList);
   }
@@ -150,6 +152,9 @@ export class HomeComponent {
     this.onType(typeList[4]);
     this.registrationSearch = typeList[0];
     this.searchList = [this.registrationSearch];
+  }
+  onSearchListVacation(){
+return this.vacationCrud;
   }
 
   onSearchEmployee() {

@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  Output
+  Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EmployeesService } from '../employees/employees.service';
@@ -19,6 +19,7 @@ export class SearchComponent implements OnDestroy, OnChanges {
   registrationSearch: string = '';
   yearSearch: string = '';
   monthSearch: string = '';
+  vacationList: string = 'vacationList';
 
   @Input() typeCalendarSearch: string | null | undefined;
   isEmployee: boolean = false;
@@ -73,6 +74,7 @@ export class SearchComponent implements OnDestroy, OnChanges {
       this.registrationSearch,
       this.monthSearch,
       this.yearSearch,
+      this.vacationList
     ]);
   }
 
