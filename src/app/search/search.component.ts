@@ -59,15 +59,15 @@ export class SearchComponent implements OnDestroy, OnChanges {
 
   onSearch() {
     if (this.typeCalendarSearch === 'FÉRIAS DO FUNCIONÁRIO') {
-      this.monthSearch = '';
-      this.yearSearch = '';
+      this.monthSearch = 'n/a';
+      this.yearSearch = 'n/a';
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO MÊS') {
-      this.registrationSearch = '';
+      this.registrationSearch = 'n/a';
     }
     if (this.typeCalendarSearch === 'FÉRIAS DO ANO') {
-      this.monthSearch = '';
-      this.registrationSearch = '';
+      this.monthSearch = 'n/a';
+      this.registrationSearch = 'n/a';
     }
 
     this.searchTypeName.emit([

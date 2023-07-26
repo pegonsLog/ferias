@@ -1,4 +1,10 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models/user';
 import { Employee } from '../shared/models/employee';
@@ -94,7 +100,6 @@ export class HomeComponent {
     if (this.menuName[2] === type[3]) {
       this.typeName = type[3];
       this.vacationCrud = type;
-
     }
     if (this.menuName[3] === type) {
       this.typeName = 'employeeCreate';
@@ -144,7 +149,7 @@ export class HomeComponent {
   }
 
   onVacationUpdate(event: any) {
-    this.userUpdate = event;
+    this.vacation = event;
   }
 
   onTypeList(typeList: any) {
@@ -153,26 +158,32 @@ export class HomeComponent {
     this.registrationSearch = typeList[0];
     this.searchList = [this.registrationSearch];
   }
-  onSearchListVacation(){
-return this.vacationCrud;
+  onSearchListVacation() {
+    return this.vacationCrud;
   }
 
   onSearchEmployee() {
     this.titleName = 'CONSULTA POR FUNCIONÁRIO';
     this.typeName = 'search';
-    this.typeCalendarSearch = document.querySelector('a[id="vacation_employee"]')?.textContent;
+    this.typeCalendarSearch = document.querySelector(
+      'a[id="vacation_employee"]'
+    )?.textContent;
   }
 
   onSearchMonth() {
     this.titleName = 'CONSULTA POR MÊS';
     this.typeName = 'search';
-    this.typeCalendarSearch = document.querySelector('a[id="vacation_month"]')?.textContent;
+    this.typeCalendarSearch = document.querySelector(
+      'a[id="vacation_month"]'
+    )?.textContent;
   }
 
   onSearchYear() {
     this.titleName = 'CONSULTA POR ANO';
     this.typeName = 'search';
-    this.typeCalendarSearch = document.querySelector('a[id="vacation_year"]')?.textContent;
+    this.typeCalendarSearch = document.querySelector(
+      'a[id="vacation_year"]'
+    )?.textContent;
   }
 
   registrationOutput(registration: any) {

@@ -12,8 +12,10 @@ import { VacationService } from '../vacation.service';
 })
 export class VacationListComponent implements OnInit {
   subscription: Subscription = new Subscription();
+  subscription2: Subscription = new Subscription();
   dataSource$!: Observable<any>;
   vacationUpdate: string = 'vacationUpdate';
+  header: string = '';
 
   @Input() searchListCrud: any[] = [];
 
@@ -21,6 +23,7 @@ export class VacationListComponent implements OnInit {
   @Output() vacationEmit: EventEmitter<any> = new EventEmitter<string>();
 
   displayedColumns: string[] = [
+    'id',
     'registration',
     'startVacation',
     'endVacation',
@@ -34,26 +37,32 @@ export class VacationListComponent implements OnInit {
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    const param = this.searchListCrud;
-    if(param[0]){
-
-      this.forRegister(param[0]);
-      console.log(param[0]);
+    if (this.searchListCrud[0] !== 'n/a') {
+      this.forRegister(this.searchListCrud[0]);
+      this.header = `Férias do funcionário: ${this.searchListCrud[0]}`;
+    } else if (
+      this.searchListCrud[1] !== 'n/a' &&
+      this.searchListCrud[2] !== 'n/a'
+    ) {
+      this.forMonth(this.searchListCrud[1], this.searchListCrud[2]);
+      this.header = `Férias do mês de: ${this.searchListCrud[1]}/${this.searchListCrud[2]}`;
+    } else {
+      this.forYear(this.searchListCrud[2]);
+      this.header = `Férias do ano de: ${this.searchListCrud[2]}`;
     }
-    // console.log(param[3]);
   }
 
   onUpdateVacation(id: string) {
-    this.subscription = this.vacationService
+    this.subscription2 = this.vacationService
       .findOne(id)
       .subscribe((result: Vacation) => {
-        this.vacationEmit.emit(result), this.crud.emit(this.vacationUpdate);
+        this.vacationEmit.emit(result)
       });
   }
 
   onDeleteVacation(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
-    this.subscription = dialogReference
+    this.subscription2 = dialogReference
       .afterClosed()
       .subscribe((result: any) => {
         if (result) {
@@ -64,69 +73,80 @@ export class VacationListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   forRegister(param: string) {
     this.dataSource$ = this.vacationService.list().pipe(
-      map(
-        (data: Vacation[]) =>
-          data.filter((result: Vacation) => {
-            result.registration === param;
-          })
-        .sort((a, b) =>
-          b.startVacation
-            .toString()
-            .split('/')
-            .reverse()
-            .join('/')
-            .localeCompare(
-              a.startVacation.toString().split('/').reverse().join('/')
-            )
-        )
-      )
-    );
-  }
-  forMonth(month: string, year: string) {
-    this.dataSource$ = this.vacationService.list().pipe(
-      map(
-        (data: Vacation[]) =>
-          data.filter((result: Vacation) => {
-            result.startVacation.toString().substring(3, 5) === month &&
-              result.startVacation.toString().substring(6, 10) === year;
-          })
-        // .sort((a, b) =>
-        //   b.startVacation
-        //     .toString()
-        //     .split('/')
-        //     .reverse()
-        //     .join('/')
-        //     .localeCompare(
-        //       a.startVacation.toString().split('/').reverse().join('/')
-        //     )
-        // )
+      map((data: Vacation[]) =>
+        data
+          .filter((result: Vacation) => result.registration == param)
+
+          .sort((a, b) =>
+            b.startVacation
+              .toString()
+              .split('/')
+              .reverse()
+              .join('/')
+              .localeCompare(
+                a.startVacation.toString().split('/').reverse().join('/')
+              )
+          )
       )
     );
   }
 
+  forMonth(month: string, year: string) {
+    const monthYear = `${month}/${year}`;
+
+    this.dataSource$ = this.vacationService
+      .list()
+      .pipe(
+        map((data: Vacation[]) =>
+          data
+            .filter(
+              (result: Vacation) =>
+                `${result.startVacation
+                  .toString()
+                  .substring(3, 6)}${result.startVacation
+                  .toString()
+                  .substring(6, 10)}` === monthYear
+            )
+            .sort((a, b) =>
+              b.startVacation
+                .toString()
+                .split('/')
+                .reverse()
+                .join('/')
+                .localeCompare(
+                  a.startVacation.toString().split('/').reverse().join('/')
+                )
+            )
+        )
+      );
+  }
+
   forYear(param: string) {
-    this.dataSource$ = this.vacationService.list().pipe(
-      map(
-        (data: Vacation[]) =>
-          data.filter(
-            (result: Vacation) =>
-              param === result.startVacation.toString().substring(6, 10)
-          )
-        // .sort((a, b) =>
-        //   b.startVacation
-        //     .toString()
-        //     .split('/')
-        //     .reverse()
-        //     .join('/')
-        //     .localeCompare(
-        //       a.startVacation.toString().split('/').reverse().join('/')
-        //     )
-        // )
-      )
-    );
+    this.dataSource$ = this.vacationService
+      .list()
+      .pipe(
+        map((data: Vacation[]) =>
+          data
+            .filter(
+              (result: Vacation) =>
+                param === result.startVacation.toString().substring(6, 10)
+            )
+            .sort((a, b) =>
+              b.startVacation
+                .toString()
+                .split('/')
+                .reverse()
+                .join('/')
+                .localeCompare(
+                  a.startVacation.toString().split('/').reverse().join('/')
+                )
+            )
+        )
+      );
   }
 }

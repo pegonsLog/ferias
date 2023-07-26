@@ -2,11 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Vacation } from '../shared/models/vacation';
 import { initializeApp } from '@angular/fire/app';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getFirestore, setDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  getFirestore,
+  setDoc,
+} from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VacationService {
   app = initializeApp(environment.firebase);
@@ -23,7 +33,7 @@ export class VacationService {
     period: new Date(),
     intprop: '',
     sell: '',
-    observation: ''
+    observation: '',
   };
 
   constructor(private firestore: Firestore) {}
@@ -52,8 +62,8 @@ export class VacationService {
     return addDoc($vacationRef, vacation);
   }
 
-  update(vacations: Vacation, id: string) {
+  update(vacation: Vacation, id: string) {
     let $vacationRef = doc(this.db, 'vacations/' + id);
-    return setDoc($vacationRef, vacations);
+    return setDoc($vacationRef, vacation);
   }
 }

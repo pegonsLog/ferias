@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
@@ -13,13 +13,14 @@ import { VacationService } from '../vacation.service';
 @Component({
   selector: 'app-vacation-update',
   templateUrl: './vacation-update.component.html',
-  styleUrls: ['./vacation-update.component.scss']
+  styleUrls: ['./vacation-update.component.scss'],
 })
-export class VacationUpdateComponent {
-  form: FormGroup;
+export class VacationUpdateComponent implements OnInit{
+  form!: FormGroup;
 
   registrations: Employee[] = [];
   subscription: Subscription = new Subscription();
+  subscription2: Subscription = new Subscription();
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
   main: string = 'main';
 
@@ -46,7 +47,19 @@ export class VacationUpdateComponent {
     period: new Date(),
     intprop: '',
     sell: '',
-    observation: ''
+    observation: '',
+  };
+
+  @Input() vacationUpdate: Vacation = {
+    id: '',
+    registration: '',
+    startVacation: new Date(),
+    endVacation: new Date(),
+    limit: new Date(),
+    period: new Date(),
+    intprop: '',
+    sell: '',
+    observation: '',
   };
 
   constructor(
@@ -58,27 +71,18 @@ export class VacationUpdateComponent {
     this.subscription = this.employeesService
       .list()
       .pipe(
-        map((result: any) => result.sort((a: any, b: any) => a.name!.localeCompare(b.name!)))
+        map((result: any) =>
+          result.sort((a: any, b: any) => a.name!.localeCompare(b.name!))
+        )
       )
       .subscribe((data: Employee[]) => (this.registrations = data));
-    this.form = this.fb.group({
-      registration: ['', Validators.required],
-      startVacation: ['', Validators.required],
-      endVacation: ['', Validators.required],
-      limit: [''],
-      period: ['', Validators.required],
-      intprop: ['', Validators.required],
-      sell: ['', Validators.required],
-      observation: ['']
-    });
   }
 
   onClear() {
     this.form.reset();
   }
 
-  vacationUpdate() {
-
+  update() {
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startVacation;
     this.vacation.endVacation = this.form.value.endVacation;
@@ -97,7 +101,23 @@ export class VacationUpdateComponent {
       .catch(() => console.log('Deu erro'));
   }
 
+  ngOnInit(): void {
+  
+    this.form = this.fb.group({
+      id: [this.vacationUpdate.id],
+      registration: [this.vacationUpdate.registration, Validators.required],
+      startVacation: [this.vacationUpdate.startVacation, Validators.required],
+      endVacation: [this.vacationUpdate.endVacation, Validators.required],
+      limit: [this.vacationUpdate.limit, Validators.required],
+      period: [this.vacationUpdate.period, Validators.required],
+      intprop: [this.vacationUpdate.intprop, Validators.required],
+      sell: [this.vacationUpdate.sell, Validators.required],
+      observation: [this.vacationUpdate.observation, Validators.required],
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 }

@@ -4,9 +4,10 @@
 
     <form>
       <div *ngIf="isEmployee; else month">
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-form-field class="full-width">
           <mat-label for="registration">Matrícula</mat-label>
           <input
+           
             style="font-family: Montserrat"
             id="registration"
             matInput
@@ -27,12 +28,12 @@
           mat-raised-button
         >
           Buscar
-        </button> 
+        </button>
       </div>
       <!-- </mat-card-actions> -->
       <ng-template #month>
         <div *ngIf="isMonth; else year">
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="full-width">
             <mat-label for="mes">Mês</mat-label>
             <mat-select
               style="font-family: Montserrat"
@@ -58,7 +59,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="full-width">
             <mat-label for="ano">Ano</mat-label>
             <mat-select
               style="font-family: Montserrat"
@@ -83,7 +84,7 @@
       </ng-template>
       <ng-template #year>
         <div *ngIf="isYear">
-          <mat-form-field class="full-width" [hideRequiredMarker]="true">
+          <mat-form-field class="full-width">
             <mat-label for="ano">Ano</mat-label>
             <mat-select
               style="font-family: Montserrat"

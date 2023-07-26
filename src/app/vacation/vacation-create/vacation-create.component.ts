@@ -3,23 +3,27 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { createMask } from '@ngneat/input-mask';
-import { Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { EmployeesService } from 'src/app/employees/employees.service';
 import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
 import { VacationService } from '../vacation.service';
 import { Employee } from 'src/app/shared/models/employee';
 import { Vacation } from 'src/app/shared/models/vacation';
+import { ThisReceiver } from '@angular/compiler';
+import { ListKeyManager } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-vacation-create',
   templateUrl: './vacation-create.component.html',
-  styleUrls: ['./vacation-create.component.scss']
+  styleUrls: ['./vacation-create.component.scss'],
 })
 export class VacationCreateComponent {
   form: FormGroup;
 
   registrations: Employee[] = [];
+  list: Vacation[] = [];
   subscription: Subscription = new Subscription();
+  subscription2: Subscription = new Subscription();
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
   main: string = 'main';
 
@@ -44,7 +48,7 @@ export class VacationCreateComponent {
     period: new Date(),
     intprop: '',
     sell: '',
-    observation: ''
+    observation: '',
   };
 
   constructor(
@@ -67,7 +71,7 @@ export class VacationCreateComponent {
       period: ['', Validators.required],
       intprop: ['', Validators.required],
       sell: ['', Validators.required],
-      observation: ['']
+      observation: [''],
     });
   }
 
@@ -76,7 +80,6 @@ export class VacationCreateComponent {
   }
 
   async vacationAdd() {
-
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startVacation;
     this.vacation.endVacation = this.form.value.endVacation;
@@ -95,7 +98,20 @@ export class VacationCreateComponent {
       .catch(() => console.log('Deu erro'));
   }
 
+  goList(registration: string) {
+    this.subscription2 = this.vacationService
+      .list()
+      .pipe(
+        map((data: Vacation[]) =>
+          data.filter((result) => result.registration === registration)
+        )
+      )
+      .subscribe((result) => {
+        this.list = result;
+      });
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 }
