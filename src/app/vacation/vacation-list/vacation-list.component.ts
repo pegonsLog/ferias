@@ -34,15 +34,13 @@ export class VacationListComponent implements OnInit {
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    if (this.searchListCrud[1] === '' || this.searchListCrud[2] === '') {
-      this.forRegister(this.searchListCrud[0]);
+    const param = this.searchListCrud;
+    if(param[0]){
+
+      this.forRegister(param[0]);
+      console.log(param[0]);
     }
-    if (this.searchListCrud[0] === '' || this.searchListCrud[1] === '') {
-      this.forYear(this.searchListCrud[2]);
-    }
-    if (this.searchListCrud[1] !== '' && this.searchListCrud[2] !== '') {
-      this.forMonth(this.searchListCrud[1], this.searchListCrud[2]);
-    }
+    // console.log(param[3]);
   }
 
   onUpdateVacation(id: string) {
@@ -70,67 +68,65 @@ export class VacationListComponent implements OnInit {
 
   forRegister(param: string) {
     this.dataSource$ = this.vacationService.list().pipe(
-      map((data: Vacation[]) =>
-        data
-          .filter((result: Vacation) => {
-            param === result.registration;
+      map(
+        (data: Vacation[]) =>
+          data.filter((result: Vacation) => {
+            result.registration === param;
           })
-          // .sort((a, b) =>
-          //   b.startVacation
-          //     .toString()
-          //     .split('/')
-          //     .reverse()
-          //     .join('/')
-          //     .localeCompare(
-          //       a.endVacation.toString().split('/').reverse().join('/')
-          //     )
-          // )
+        .sort((a, b) =>
+          b.startVacation
+            .toString()
+            .split('/')
+            .reverse()
+            .join('/')
+            .localeCompare(
+              a.startVacation.toString().split('/').reverse().join('/')
+            )
+        )
       )
     );
   }
   forMonth(month: string, year: string) {
     this.dataSource$ = this.vacationService.list().pipe(
-      map((data: Vacation[]) =>
-        data
-          .filter((result: Vacation) => {
+      map(
+        (data: Vacation[]) =>
+          data.filter((result: Vacation) => {
             result.startVacation.toString().substring(3, 5) === month &&
               result.startVacation.toString().substring(6, 10) === year;
           })
-          // .sort((a, b) =>
-          //   b.startVacation
-          //     .toString()
-          //     .split('/')
-          //     .reverse()
-          //     .join('/')
-          //     .localeCompare(
-          //       a.startVacation.toString().split('/').reverse().join('/')
-          //     )
-          // )
+        // .sort((a, b) =>
+        //   b.startVacation
+        //     .toString()
+        //     .split('/')
+        //     .reverse()
+        //     .join('/')
+        //     .localeCompare(
+        //       a.startVacation.toString().split('/').reverse().join('/')
+        //     )
+        // )
       )
     );
   }
 
   forYear(param: string) {
-    this.dataSource$ = this.vacationService
-      .list()
-      .pipe(
-        map((data: Vacation[]) =>
-          data
-            .filter(
-              (result: Vacation) =>
-                param === result.startVacation.toString().substring(6, 10)
-            )
-            // .sort((a, b) =>
-            //   b.startVacation
-            //     .toString()
-            //     .split('/')
-            //     .reverse()
-            //     .join('/')
-            //     .localeCompare(
-            //       a.startVacation.toString().split('/').reverse().join('/')
-            //     )
-            // )
-        )
-      );
+    this.dataSource$ = this.vacationService.list().pipe(
+      map(
+        (data: Vacation[]) =>
+          data.filter(
+            (result: Vacation) =>
+              param === result.startVacation.toString().substring(6, 10)
+          )
+        // .sort((a, b) =>
+        //   b.startVacation
+        //     .toString()
+        //     .split('/')
+        //     .reverse()
+        //     .join('/')
+        //     .localeCompare(
+        //       a.startVacation.toString().split('/').reverse().join('/')
+        //     )
+        // )
+      )
+    );
   }
 }
