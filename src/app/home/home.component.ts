@@ -149,7 +149,9 @@ export class HomeComponent {
   }
 
   onVacationUpdate(event: any) {
+    this.titleName = 'FÉRIAS';
     this.vacation = event;
+    this.onType(this.vacationUpdate);
   }
 
   onTypeList(typeList: any) {

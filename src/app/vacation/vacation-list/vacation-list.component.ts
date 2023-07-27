@@ -51,14 +51,15 @@ export class VacationListComponent implements OnInit {
       this.header = `Férias do ano de: ${this.searchListCrud[2]}`;
     }
   }
-
+/**************************************************** */
   onUpdateVacation(id: string) {
     this.subscription2 = this.vacationService
       .findOne(id)
-      .subscribe((result: Vacation) => {
+      .subscribe((result: Vacation) =>
         this.vacationEmit.emit(result)
-      });
+      );
   }
+  /*************************************************** */
 
   onDeleteVacation(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
