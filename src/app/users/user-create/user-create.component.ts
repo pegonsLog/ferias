@@ -56,5 +56,7 @@ export class UserCreateComponent {
       })
       .catch(() => console.log('Deu erro'));
   }
-  onClear() {}
+  onClear() {
+    this.form.reset();
+  }
 }

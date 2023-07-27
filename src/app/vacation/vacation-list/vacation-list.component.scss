@@ -15,12 +15,22 @@ a {
   cursor: pointer;
 }
 
-// #table-container{
-//   height: 470px;
-//   overflow: auto;
-// }
+#loading-spinner {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+}
+
 
 mat-card {
     margin-left: 12%;
     width: 70%;
   }
+
+  
+#table-container{
+  height: 470px;
+  overflow: auto;
+}

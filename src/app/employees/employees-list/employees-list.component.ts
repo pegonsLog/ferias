@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription, map } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
@@ -10,15 +10,24 @@ import { EmployeesService } from '../employees.service';
   templateUrl: './employees-list.component.html',
   styleUrls: ['./employees-list.component.scss'],
 })
-export class EmployeesListComponent {
+export class EmployeesListComponent implements OnDestroy {
   employeeCreate: string = 'employeeCreate';
   employeeUpdate: string = 'employeeUpdate';
 
   @Output() type: EventEmitter<string> = new EventEmitter<string>();
   @Output() employeeEmit: EventEmitter<any> = new EventEmitter<string>();
 
-  displayedColumns: string[] = ['name', 'registration', 'office', 'shift', 'admission', 'admission2', 'actions'];
-  subscription: Subscription = new Subscription();
+  displayedColumns: string[] = [
+    'name',
+    'registration',
+    'office',
+    'shift',
+    'admission',
+    'admission2',
+    'actions',
+  ];
+  subscriptionDelete: Subscription = new Subscription();
+  subscriptionUpdate: Subscription = new Subscription();
   dataSource$: Observable<any>;
 
   constructor(
@@ -32,12 +41,12 @@ export class EmployeesListComponent {
       );
   }
 
-  onCreateUser() {
+  onCreateEmployee() {
     this.type.emit(this.employeeCreate);
   }
 
-  onUpdateUser(id: string) {
-    this.subscription = this.employeeService
+  onUpdateEmployee(id: string) {
+    this.subscriptionUpdate = this.employeeService
       .findOne(id)
       .subscribe((result: Employee) => {
         this.employeeEmit.emit(result), this.type.emit(this.employeeUpdate);
@@ -46,7 +55,7 @@ export class EmployeesListComponent {
 
   onDeleteEmployee(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);
-    this.subscription = dialogReference
+    this.subscriptionDelete = dialogReference
       .afterClosed()
       .subscribe((result: any) => {
         if (result) {
@@ -54,8 +63,9 @@ export class EmployeesListComponent {
         }
       });
   }
-  // applyFilter(event: KeyboardEvent) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource$.filter = filterValue.trim().toLowerCase();
-  // }
+
+  ngOnDestroy(): void {
+  this.subscriptionUpdate.unsubscribe();
+  this.subscriptionDelete.unsubscribe();
+  }
 }

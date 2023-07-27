@@ -57,7 +57,7 @@ export class HomeComponent {
     admission: '',
     admission2: '',
   };
-  vacation: Vacation = {
+  vacationUpdate: Vacation = {
     id: '',
     registration: '',
     startVacation: new Date(),
@@ -78,7 +78,7 @@ export class HomeComponent {
   employeeList: string = 'employeeList';
   vacationList: string = 'vacationList';
   vacationCreate: string = 'vacationCreate';
-  vacationUpdate: string = 'vacationUpdate';
+  update: string = 'vacationUpdate';
   users: string = 'userList';
   search: string = 'search';
   main: string = 'main';
@@ -150,7 +150,7 @@ export class HomeComponent {
 
   onVacationUpdate(event: any) {
     this.titleName = 'FÉRIAS';
-    this.vacation = event;
+    this.vacationUpdate = event;
     this.onType(this.vacationUpdate);
   }
 
@@ -160,6 +160,7 @@ export class HomeComponent {
     this.registrationSearch = typeList[0];
     this.searchList = [this.registrationSearch];
   }
+  
   onSearchListVacation() {
     return this.vacationCrud;
   }
@@ -202,7 +203,9 @@ export class HomeComponent {
   }
 
   onEmployeesUpdate(event: any) {
+    this.titleName = 'FUNCIONÁRIOS';
     this.employeeUpdate = event;
+    this.onType(this.employeeUpdate);
   }
 
   onUsersList(users: any) {
@@ -215,6 +218,8 @@ export class HomeComponent {
   }
 
   onUsersUpdate(event: any) {
-    this.employeeUpdate = event;
+    this.titleName = 'USUÁRIOS';
+    this.userUpdate = event;
+    this.onType(this.userUpdate);
   }
 }

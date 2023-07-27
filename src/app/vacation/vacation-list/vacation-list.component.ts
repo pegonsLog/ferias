@@ -20,6 +20,7 @@ export class VacationListComponent implements OnInit {
   @Input() searchListCrud: any[] = [];
 
   @Output() crud: EventEmitter<string> = new EventEmitter<string>();
+  @Output() type: EventEmitter<string> = new EventEmitter<string>();
   @Output() vacationEmit: EventEmitter<any> = new EventEmitter<string>();
 
   displayedColumns: string[] = [
@@ -51,15 +52,14 @@ export class VacationListComponent implements OnInit {
       this.header = `Férias do ano de: ${this.searchListCrud[2]}`;
     }
   }
-/**************************************************** */
+
   onUpdateVacation(id: string) {
     this.subscription2 = this.vacationService
       .findOne(id)
-      .subscribe((result: Vacation) =>
-        this.vacationEmit.emit(result)
+      .subscribe(
+        (result: Vacation) => {this.vacationEmit.emit(result), this.type.emit(this.vacationUpdate)}
       );
   }
-  /*************************************************** */
 
   onDeleteVacation(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);

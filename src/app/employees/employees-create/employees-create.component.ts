@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
 import { EmployeesService } from '../employees.service';
 import { Employee } from 'src/app/shared/models/employee';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-employees-create',
@@ -27,12 +28,13 @@ export class EmployeesCreateComponent {
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
-    inputFormat: 'dd/mm',
+    inputFormat: 'dd/mm/yyyy',
     formatter: (value: string) => {
-      const values = value.split('/');
+      const values = value.split('-');
+      const date = +values[2];
       const month = +values[1] - 1;
-      const date = +values[0];
-      return new Date(month, date);
+      const year = +values[0];
+      return formatDate(new Date(year, month, date), 'dd/MM/yyyy', 'en-US');
     },
   });
 
@@ -55,10 +57,6 @@ export class EmployeesCreateComponent {
     });
   }
 
-  onClear() {
-    this.form.reset();
-  }
-
   employeeAdd() {
     this.employee.registration = this.form.value.registration;
     this.employee.name = this.form.value.name;
@@ -75,5 +73,8 @@ export class EmployeesCreateComponent {
         this.typeList.emit(this.main);
       })
       .catch(() => console.log('Deu erro'));
+  }
+  onClear(){
+    this.form.reset()
   }
 }

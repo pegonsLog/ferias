@@ -78,11 +78,7 @@ export class VacationUpdateComponent implements OnInit{
       .subscribe((data: Employee[]) => (this.registrations = data));
   }
 
-  onClear() {
-    this.form.reset();
-  }
-
-  update() {
+  async update() {
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startVacation;
     this.vacation.endVacation = this.form.value.endVacation;
@@ -92,7 +88,7 @@ export class VacationUpdateComponent implements OnInit{
     this.vacation.sell = this.form.value.sell;
     this.vacation.observation = this.form.value.observation;
     return this.vacationService
-      .update(this.vacation, this.vacation.id)
+      .update(this.vacation, this.vacationUpdate.id)
       .then(() => {
         const dialogReference = this.dialog.open(DialogUpdatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
@@ -112,7 +108,7 @@ export class VacationUpdateComponent implements OnInit{
       period: [this.vacationUpdate.period, Validators.required],
       intprop: [this.vacationUpdate.intprop, Validators.required],
       sell: [this.vacationUpdate.sell, Validators.required],
-      observation: [this.vacationUpdate.observation, Validators.required],
+      observation: [this.vacationUpdate.observation],
     });
   }
 

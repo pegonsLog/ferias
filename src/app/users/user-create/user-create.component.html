@@ -3,7 +3,7 @@
     <mat-toolbar id="peso-fonte">Adicionar usuário</mat-toolbar>
     <div>
       <form [formGroup]="form" (submit)="addUser()" >
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
           <input
             style="font-family: Montserrat"
@@ -14,7 +14,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Nome</mat-label>
           <input
             style="font-family: Montserrat"
@@ -24,7 +24,7 @@
             formControlName="name"
           />
         </mat-form-field>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Sexo</mat-label>
           <mat-select
             style="font-family: Montserrat"
@@ -41,7 +41,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" [hideRequiredMarker]="true">
           <mat-label>Senha</mat-label>
           <input
             style="font-family: Montserrat"

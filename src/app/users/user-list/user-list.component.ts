@@ -47,13 +47,16 @@ export class UserListComponent implements OnDestroy {
   onCreateUser() {
     this.type.emit(this.userCreate);
   }
+
   onUpdateUser(id: string) {
+
     this.subscription = this.userService
       .findOne(id)
       .subscribe((result: User) => {
         this.userEmit.emit(result), this.type.emit(this.userUpdate);
       });
   }
+
 
   onDeleteUser(id: string) {
     const dialogReference = this.dialog.open(ConfirmationDialogComponent);

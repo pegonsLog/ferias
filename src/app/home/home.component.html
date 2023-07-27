@@ -2,11 +2,11 @@
   <mat-drawer mode="side" opened="{{ isOpened }}">
     <mat-nav-list>
       <div>
-        <h1 class="mt-2">GARBO</h1>
+        <a routerLink=""><h1 class="mt-2">GARBO</h1></a>
       </div>
       <mat-divider></mat-divider>
 
-      <h5 class="mt-4">OPÇÕES</h5>
+      <h5 class="mt-4">INCLUSÃO</h5>
       <div id="align-list">
         <mat-icon>beach_access</mat-icon>
         <a
@@ -17,6 +17,7 @@
       </div>
 
       <!--**************************************************************************-->
+      <h5 class="mt-4">CONSULTAS</h5>
       <div id="align-list">
         <mat-icon>perm_contact_calendar</mat-icon>
         <a
@@ -44,8 +45,16 @@
           >FÉRIAS DO ANO</a
         >
       </div>
-      <!--**************************************************************************-->
 
+      <h5 class="mt-4">IMPRESSÃO</h5>
+      <div id="align-list">
+        <mat-icon> print </mat-icon>
+        <a routerLinkActive="list-item-active"
+          >LISTA MENSAL</a
+        >
+      </div>
+
+      <h5 class="mt-4">MANUTENÇÃO</h5>
       <div id="align-list">
         <mat-icon>group</mat-icon>
         <a
@@ -60,6 +69,7 @@
           >USUÁRIOS</a
         >
       </div>
+
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -85,7 +95,7 @@
       </div>
       <div class="main" *ngIf="typeName === 'vacationUpdate'">
         <app-vacation-update
-          [vacationUpdate]="vacation"
+          [vacationUpdate]="vacationUpdate"
           (typeList)="onVacationUpdate($event)"
           style="width: 50%"
         ></app-vacation-update>
@@ -93,6 +103,7 @@
       <div class="main" *ngIf="typeName === 'vacationList'">
         <app-vacation-list
         [searchListCrud]="vacationCrud"
+        (type)="onType($event)"
         (vacationEmit)="onVacationUpdate($event)"
           style="width: 50%"
         ></app-vacation-list>
@@ -114,7 +125,7 @@
       <div class="main" *ngIf="typeName === 'employeeList'">
         <app-employees-list
           (type)="onType($event)"
-          (employeeEmit)="onEmployeesList($event)"
+          (employeeEmit)="onEmployeesUpdate($event)"
           style="width: 50%"
         ></app-employees-list>
       </div>
@@ -128,14 +139,14 @@
       <div class="main" *ngIf="typeName === 'userUpdate'">
         <app-user-update
           [userUpdate]="userUpdate"
-          (typeList)="onUsersList($event)"
+          (typeList)="onUsersUpdate($event)"
           style="width: 50%"
         ></app-user-update>
       </div>
       <div class="main" *ngIf="typeName === 'userList'">
         <app-user-list
           (type)="onType($event)"
-          (userEmit)="onVacationUpdate($event)"
+          (userEmit)="onUsersUpdate($event)"
           style="width: 50%"
         ></app-user-list>
       </div>

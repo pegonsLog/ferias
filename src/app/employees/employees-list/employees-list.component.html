@@ -2,12 +2,12 @@
   <mat-card-content>
     <mat-toolbar id="peso-fonte"
       >Funcionários
-      <a (click)="onCreateUser()"
+      <a (click)="onCreateEmployee()"
         ><mat-icon>person_add</mat-icon></a
       ></mat-toolbar
     >
 
-    <div *ngIf="dataSource$ | async; else loading">
+    <div *ngIf="dataSource$ | async; else loading" id="table-container">
       <table
         mat-table
         [dataSource]="dataSource$ | async"
@@ -53,7 +53,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Ações</th>
           <td mat-cell *matCellDef="let element">
-            <a (click)="onUpdateUser(element.id)"><mat-icon>edit</mat-icon></a>
+            <a (click)="onUpdateEmployee(element.id)"><mat-icon>edit</mat-icon></a>
             <a (click)="onDeleteEmployee(element.id)"
               ><mat-icon>delete</mat-icon></a
             >

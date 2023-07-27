@@ -39,7 +39,7 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
   };
 
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
-  userList: string = 'userList'; 
+  main: string = 'main';
 
   constructor(
     private fb: FormBuilder,
@@ -47,16 +47,24 @@ export class UserUpdateComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  onUpdate() {
-    this.user = this.form.getRawValue();
-    this.userService.update(this.user, this.user.id).then();
-    this.typeList.emit(this.userList);
+  async update() {
 
-    const dialogReference = this.dialog.open(DialogUpdatedComponent);
-    this.subscription = dialogReference.afterClosed().subscribe();
+    this.user.username = this.form.value.username;
+    this.user.name = this.form.value.name;
+    this.user.password = this.form.value.password;
+    this.user.gender = this.form.value.gender;
+     return this.userService
+      .update(this.user, this.userUpdate.id)
+      .then(() => {
+        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        this.subscription = dialogReference.afterClosed().subscribe();
+        this.typeList.emit(this.main);
+      })
+      .catch(() => console.log('Deu erro'));
   }
 
   ngOnInit(): void {
+    console.log(this.form)
     this.form = this.fb.group({
       id: [this.userUpdate.id],
       username: [this.userUpdate.username, Validators.required],

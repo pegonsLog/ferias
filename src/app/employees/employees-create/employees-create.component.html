@@ -52,6 +52,7 @@
           <input
             style="font-family: Montserrat"
             matInput
+            [inputMask]="dateInputMask"
             placeholder="Data de admissão"
             type="text"
             formControlName="admission"
@@ -63,6 +64,7 @@
           <input
             style="font-family: Montserrat"
             matInput
+            [inputMask]="dateInputMask"
             placeholder="2ª Data de admissão"
             type="text"
             formControlName="admission2"
@@ -80,14 +82,14 @@
               Salvar
             </button>
             <button
-              mat-raised-button
-              (click)="onClear()"
-              id="button-cancel"
-              name="cancelar"
-              type="button"
-            >
-              Limpar
-            </button>
+            mat-raised-button
+            (click)="onClear()"
+            id="button-cancel"
+            name="cancelar"
+            type="button"
+          >
+            Limpar
+          </button>   
           </div>
         </mat-card-actions>
       </form>
