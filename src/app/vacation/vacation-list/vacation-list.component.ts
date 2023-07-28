@@ -24,10 +24,12 @@ export class VacationListComponent implements OnInit {
   @Output() vacationEmit: EventEmitter<any> = new EventEmitter<string>();
 
   displayedColumns: string[] = [
-    'id',
+    // 'id',
     'registration',
+    'purchasing',
     'startVacation',
     'endVacation',
+    'days',
     'intprop',
     'sell',
     'actions',

@@ -6,7 +6,7 @@
   font-family: Montserrat;
   background: #1e293b;
   color: #94a3b8;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
   margin-bottom: 20px;
   a {
     padding-top: 8px;
@@ -46,6 +46,6 @@ mat-card {
 }
   
 #table-container{
-  height: 470px;
+  max-height: 470px;
   overflow: auto;
 }

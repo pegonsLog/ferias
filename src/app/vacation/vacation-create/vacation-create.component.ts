@@ -42,10 +42,14 @@ export class VacationCreateComponent {
   vacation: Vacation = {
     id: '',
     registration: '',
+    name: '',
+    office: '',
     startVacation: new Date(),
     endVacation: new Date(),
+    days: 0,
     limit: new Date(),
-    period: new Date(),
+    period: '',
+    purchasing: '',
     intprop: '',
     sell: '',
     observation: '',
@@ -67,6 +71,8 @@ export class VacationCreateComponent {
       registration: ['', Validators.required],
       startVacation: ['', Validators.required],
       endVacation: ['', Validators.required],
+      purchasing: ['', Validators.required],
+      days: [0],
       limit: [''],
       period: ['', Validators.required],
       intprop: ['', Validators.required],
@@ -80,9 +86,17 @@ export class VacationCreateComponent {
   }
 
   async vacationAdd() {
+    if(this.form.valid){
+    const initialDate = this.stringToDate(this.form.value.startVacation);
+    const finalDate = this.stringToDate(this.form.value.endVacation);
+
+    const days = this.diffInDays(initialDate, finalDate);
+
     this.vacation.registration = this.form.value.registration;
     this.vacation.startVacation = this.form.value.startVacation;
     this.vacation.endVacation = this.form.value.endVacation;
+    this.vacation.purchasing = this. form.value.purchasing;
+    this.vacation.days = days;
     this.vacation.limit = this.form.value.limit;
     this.vacation.period = this.form.value.period;
     this.vacation.intprop = this.form.value.intprop;
@@ -96,6 +110,7 @@ export class VacationCreateComponent {
         this.typeList.emit(this.main);
       })
       .catch(() => console.log('Deu erro'));
+    }
   }
 
   goList(registration: string) {
@@ -113,5 +128,29 @@ export class VacationCreateComponent {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.subscription2.unsubscribe();
+  }
+
+  stringToDate(dateString: string): Date {
+    const dateParts = dateString.split('/');
+
+    const day = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1;
+    const year = parseInt(dateParts[2], 10);
+
+    const date = new Date(year, month, day);
+
+    return date;
+  }
+
+  diffInDays(initialDate: Date, finalDate: Date): number {
+    const time1 = initialDate.getTime();
+    const time2 = finalDate.getTime();
+
+    const diffInMilliseconds = Math.abs(time2 - time1);
+
+    const millisecondsInADay = 1000 * 60 * 60 * 24;
+    const diffInDays = Math.floor(diffInMilliseconds / millisecondsInADay);
+
+    return diffInDays;
   }
 }

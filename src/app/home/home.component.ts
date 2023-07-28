@@ -60,10 +60,14 @@ export class HomeComponent {
   vacationUpdate: Vacation = {
     id: '',
     registration: '',
+    name: '',
+    office: '',
     startVacation: new Date(),
     endVacation: new Date(),
+    days: 0,
     limit: new Date(),
-    period: new Date(),
+    period: '',
+    purchasing: '',
     intprop: '',
     sell: '',
     observation: '',
@@ -144,7 +148,7 @@ export class HomeComponent {
   }
 
   onVacationCreate(vacationCreate: string) {
-    this.titleName = 'FÉRIAS';
+    this.titleName = 'ADICIONAR FÉRIAS';
     this.onType(vacationCreate);
   }
 
@@ -166,7 +170,7 @@ export class HomeComponent {
   }
 
   onSearchEmployee() {
-    this.titleName = 'CONSULTA POR FUNCIONÁRIO';
+    this.titleName = 'FÉRIAS DO FUNCIONÁRIO';
     this.typeName = 'search';
     this.typeCalendarSearch = document.querySelector(
       'a[id="vacation_employee"]'
@@ -174,7 +178,7 @@ export class HomeComponent {
   }
 
   onSearchMonth() {
-    this.titleName = 'CONSULTA POR MÊS';
+    this.titleName = 'FÉRIAS DO MÊS';
     this.typeName = 'search';
     this.typeCalendarSearch = document.querySelector(
       'a[id="vacation_month"]'
@@ -182,7 +186,7 @@ export class HomeComponent {
   }
 
   onSearchYear() {
-    this.titleName = 'CONSULTA POR ANO';
+    this.titleName = 'FÉRIAS DO ANO';
     this.typeName = 'search';
     this.typeCalendarSearch = document.querySelector(
       'a[id="vacation_year"]'
@@ -194,7 +198,7 @@ export class HomeComponent {
   }
 
   onEmployeesList(employees: any) {
-    this.titleName = 'FUNCIONÁRIOS CADASTRADOS';
+    this.titleName = 'FUNCIONÁRIOS';
     this.onType(employees);
   }
 
@@ -209,7 +213,7 @@ export class HomeComponent {
   }
 
   onUsersList(users: any) {
-    this.titleName = 'USUÁRIOS CADASTRADOS';
+    this.titleName = 'USUÁRIOS';
     this.onType(users);
   }
 

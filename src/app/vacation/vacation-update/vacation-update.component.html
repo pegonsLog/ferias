@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content>
-    <mat-toolbar id="peso-fonte">Alterar</mat-toolbar>
+    <mat-toolbar id="peso-fonte">Informe os dados para a alteração</mat-toolbar>
     <div>
       <form [formGroup]="form" (ngSubmit)="update()">
-        <mat-form-field class="full-width" [hideRequiredMarker]="true">
+        <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
           <mat-label>Matrícula</mat-label>
           <mat-select
             formControlName="registration"
@@ -16,6 +16,22 @@
               {{ registration.name }} - {{ registration.registration }} -
               {{ registration.admission }}
             </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="half-width" [hideRequiredMarker]="true">
+          <mat-label for="purchasing">Período</mat-label>
+          <mat-select
+            style="font-family: Montserrat"
+            id="purchasing"
+            class="select"
+            aria-label="Período"
+            placeholder="Período"
+            name="purchasing"
+            formControlName="purchasing"
+          >
+            <mat-option selected value="Int">1º Per</mat-option>
+            <mat-option selected value="Prop">2º Per</mat-option>
+            <mat-option selected value="Prop">3º Per</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -57,11 +73,11 @@
           />
         </mat-form-field>
         <mat-form-field class="half-width" [hideRequiredMarker]="true">
-          <mat-label>Período</mat-label>
+          <mat-label>Período aquisitivo</mat-label>
           <input
             style="font-family: Montserrat"
             matInput
-            placeholder="Período"
+            placeholder="Período aquisitivo"
             type="text"
             formControlName="period"
           />
