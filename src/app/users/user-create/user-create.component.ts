@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { DialogUpdatedComponent } from 'src/app/shared/dialogs/dialog-updated/dialog-updated.component';
 import { User } from 'src/app/shared/models/user';
+import { DialogCreatedComponent } from 'src/app/shared/dialogs/dialog-created/dialog-created.component';
 
 @Component({
   selector: 'app-user-create',
@@ -50,7 +50,7 @@ export class UserCreateComponent {
     return this.userService
       .addUser(this.user)
       .then(() => {
-        const dialogReference = this.dialog.open(DialogUpdatedComponent);
+        const dialogReference = this.dialog.open(DialogCreatedComponent);
         this.subscription = dialogReference.afterClosed().subscribe();
         this.typeList.emit(this.main);
       })

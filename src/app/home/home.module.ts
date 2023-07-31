@@ -10,6 +10,7 @@ import { UserModule } from '../users/user.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { VacationModule } from '../vacation/vacation.module';
+import { MonthListModule } from '../month-list/month-list.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -24,6 +25,7 @@ import { VacationModule } from '../vacation/vacation.module';
     FormsModule,
     ReactiveFormsModule,
     SearchModule,
+    MonthListModule
   ],
   exports: [HomeComponent],
 })

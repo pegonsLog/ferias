@@ -124,7 +124,7 @@ export class VacationUpdateComponent implements OnInit {
       limit: [this.vacationUpdate.limit],
       period: [this.vacationUpdate.period, Validators.required],
       intprop: [this.vacationUpdate.intprop, Validators.required],
-      sell: [this.vacationUpdate.sell, Validators.required],
+      sell: [this.vacationUpdate.sell],
       observation: [this.vacationUpdate.observation],
     });
   }

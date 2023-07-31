@@ -76,7 +76,7 @@ export class VacationCreateComponent {
       limit: [''],
       period: ['', Validators.required],
       intprop: ['', Validators.required],
-      sell: ['', Validators.required],
+      sell: [''],
       observation: [''],
     });
   }

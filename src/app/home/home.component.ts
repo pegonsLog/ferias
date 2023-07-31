@@ -28,6 +28,8 @@ export class HomeComponent {
     'userList',
     'search',
     'main',
+    'searchListMonth',
+    'listMonth'
   ];
 
   typeName: string = '';
@@ -73,6 +75,8 @@ export class HomeComponent {
     observation: '',
   };
 
+  listMonth: String[] = [];
+
   searchList: any[] = [];
 
   @Output() registrationSearchList: EventEmitter<any> = new EventEmitter<any>();
@@ -86,6 +90,8 @@ export class HomeComponent {
   users: string = 'userList';
   search: string = 'search';
   main: string = 'main';
+  searchListMonth = 'searchListMonth';
+  listMonthSearch = 'listMonth';
 
   dataSource$: Observable<any> | undefined;
 
@@ -129,6 +135,12 @@ export class HomeComponent {
     if (this.menuName[10] === type) {
       this.typeName = 'main';
     }
+    if (this.menuName[11] === type) {
+      this.typeName = 'searchListMonth';
+    }
+    if (this.menuName[12] === type) {
+      this.typeName = 'listMonth';
+    }
   }
 
   onRegistration(registration: string) {
@@ -164,7 +176,7 @@ export class HomeComponent {
     this.registrationSearch = typeList[0];
     this.searchList = [this.registrationSearch];
   }
-  
+
   onSearchListVacation() {
     return this.vacationCrud;
   }
@@ -225,5 +237,15 @@ export class HomeComponent {
     this.titleName = 'USUÁRIOS';
     this.userUpdate = event;
     this.onType(this.userUpdate);
+  }
+
+  onSearchListMonth() {
+    this.titleName = 'LISTA MENSAL DE FÉRIAS';
+    this.onType(this.searchListMonth);
+  }
+
+  onListMonthSearch(event: any) {
+     this.listMonth = event;
+    this.onType(this.listMonthSearch);
   }
 }

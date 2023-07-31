@@ -49,7 +49,7 @@
       <h5 class="mt-4">IMPRESSÃO</h5>
       <div id="align-list">
         <mat-icon> print </mat-icon>
-        <a routerLinkActive="list-item-active"
+        <a (click)="onSearchListMonth()" routerLinkActive="list-item-active"
           >LISTA MENSAL</a
         >
       </div>
@@ -69,7 +69,6 @@
           >USUÁRIOS</a
         >
       </div>
-
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
@@ -102,9 +101,9 @@
       </div>
       <div class="main" *ngIf="typeName === 'vacationList'">
         <app-vacation-list
-        [searchListCrud]="vacationCrud"
-        (type)="onType($event)"
-        (vacationEmit)="onVacationUpdate($event)"
+          [searchListCrud]="vacationCrud"
+          (type)="onType($event)"
+          (vacationEmit)="onVacationUpdate($event)"
           style="width: 50%"
         ></app-vacation-list>
       </div>
@@ -157,6 +156,17 @@
           style="width: 50%"
         ></app-search>
       </div>
+      <div class="main" *ngIf="typeName === 'searchListMonth'">
+        <app-search-list
+          (listEmit)="onListMonthSearch($event)"
+          style="width: 50%"
+        ></app-search-list>
+      </div>
+      <!-- <div class="main" *ngIf="typeName === 'listMonth'">
+        <app-list [monthYear]="listMonth" style="width: 50%"></app-list>
+      </div> -->
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
+
+searchListMonth

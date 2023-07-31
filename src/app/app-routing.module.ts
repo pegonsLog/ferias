@@ -29,7 +29,7 @@ const routes: Routes = [
       import('src/app/home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'ferias',
+    path: 'vacation',
     loadChildren: () =>
       import('src/app/vacation/vacation.module').then((m) => m.VacationModule),
   },
@@ -37,6 +37,11 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () =>
       import('src/app/search/search.module').then((m) => m.SearchModule),
+  },
+  {
+    path: 'month-list',
+    loadChildren: () =>
+      import('src/app/month-list/month-list.module').then((m) => m.MonthListModule),
   }
 
 ];
