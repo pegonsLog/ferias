@@ -19,6 +19,9 @@ export class VacationUpdateComponent implements OnInit {
   form!: FormGroup;
 
   registrations: Employee[] = [];
+  name: string = '';
+  office: string = '';
+  admission: string = '';
   subscription: Subscription = new Subscription();
   subscription2: Subscription = new Subscription();
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
@@ -43,12 +46,13 @@ export class VacationUpdateComponent implements OnInit {
     registration: '',
     name: '',
     office: '',
+    admission: '',
     startVacation: new Date(),
     endVacation: new Date(),
     days: 0,
     limit: new Date(),
     period: '',
-    purchasing:'',
+    purchasing: '',
     intprop: '',
     sell: '',
     observation: '',
@@ -59,6 +63,7 @@ export class VacationUpdateComponent implements OnInit {
     registration: '',
     name: '',
     office: '',
+    admission: '',
     startVacation: new Date(),
     endVacation: new Date(),
     days: 0,
@@ -88,29 +93,44 @@ export class VacationUpdateComponent implements OnInit {
 
   async update() {
     if (this.form.valid) {
-      const initialDate = this.stringToDate(this.form.value.startVacation);
-      const finalDate = this.stringToDate(this.form.value.endVacation);
-  
-      const days = this.diffInDays(initialDate, finalDate);
+      this.subscription2 = this.employeesService
+        .findOneForRegistration(this.form.value.registration)
+        .pipe(
+          map((data) =>
+            data.filter((employee: Employee) => {
+              this.office = employee.office;
+              this.name = employee.name;
+            })
+          )
+        )
+        .subscribe(async () => {
+          const initialDate = this.stringToDate(this.form.value.startVacation);
+          const finalDate = this.stringToDate(this.form.value.endVacation);
 
-      this.vacation.registration = this.form.value.registration;
-      this.vacation.startVacation = this.form.value.startVacation;
-      this.vacation.endVacation = this.form.value.endVacation;
-      this.vacation.purchasing = this.form.value.purchasing;
-      this.vacation.days = days
-      this.vacation.limit = this.form.value.limit;
-      this.vacation.period = this.form.value.period;
-      this.vacation.intprop = this.form.value.intprop;
-      this.vacation.sell = this.form.value.sell;
-      this.vacation.observation = this.form.value.observation;
-      return this.vacationService
-        .update(this.vacation, this.vacationUpdate.id)
-        .then(() => {
-          const dialogReference = this.dialog.open(DialogUpdatedComponent);
-          this.subscription = dialogReference.afterClosed().subscribe();
-          this.typeList.emit(this.main);
-        })
-        .catch(() => console.log('Deu erro'));
+          const days = this.diffInDays(initialDate, finalDate);
+
+          this.vacation.registration = this.form.value.registration;
+          this.vacation.name = this.name;
+          this.vacation.office = this.office;
+          this.vacation.admission = this.admission;
+          this.vacation.startVacation = this.form.value.startVacation;
+          this.vacation.endVacation = this.form.value.endVacation;
+          this.vacation.purchasing = this.form.value.purchasing;
+          this.vacation.days = days;
+          this.vacation.limit = this.form.value.limit;
+          this.vacation.period = this.form.value.period;
+          this.vacation.intprop = this.form.value.intprop;
+          this.vacation.sell = this.form.value.sell;
+          this.vacation.observation = this.form.value.observation;
+          return this.vacationService
+            .update(this.vacation, this.vacationUpdate.id)
+            .then(() => {
+              const dialogReference = this.dialog.open(DialogUpdatedComponent);
+              this.subscription = dialogReference.afterClosed().subscribe();
+              this.typeList.emit(this.main);
+            })
+            .catch(() => console.log('Deu erro'));
+        });
     }
   }
 

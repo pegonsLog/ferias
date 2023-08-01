@@ -23,6 +23,10 @@
           <th mat-header-cell *matHeaderCellDef>Cargo</th>
           <td mat-cell *matCellDef="let element">{{ element.office }}</td>
         </ng-container>
+        <ng-container matColumnDef="admission">
+          <th mat-header-cell *matHeaderCellDef>Admissão</th>
+          <td mat-cell *matCellDef="let element">{{ element.admission }}</td>
+        </ng-container>
         <ng-container matColumnDef="purchasing">
           <th mat-header-cell *matHeaderCellDef>Período</th>
           <td mat-cell *matCellDef="let element">{{ element.purchasing }}</td>
@@ -36,6 +40,10 @@
         <ng-container matColumnDef="endVacation">
           <th mat-header-cell *matHeaderCellDef>Data do término</th>
           <td mat-cell *matCellDef="let element">{{ element.endVacation }}</td>
+        </ng-container>
+        <ng-container matColumnDef="limit">
+          <th mat-header-cell *matHeaderCellDef>Data Limite</th>
+          <td mat-cell *matCellDef="let element">{{ element.limit }}</td>
         </ng-container>
         <ng-container matColumnDef="days">
           <th mat-header-cell *matHeaderCellDef>Dias</th>

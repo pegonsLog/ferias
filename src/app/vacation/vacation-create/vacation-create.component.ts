@@ -28,6 +28,7 @@ export class VacationCreateComponent {
   registrations: Employee[] = [];
   name: string = '';
   office: string = '';
+  admission: string = '';
 
   subscription: Subscription = new Subscription();
   subscription2: Subscription = new Subscription();
@@ -51,6 +52,7 @@ export class VacationCreateComponent {
     registration: '',
     name: '',
     office: '',
+    admission: '',
     startVacation: new Date(),
     endVacation: new Date(),
     days: 0,
@@ -113,6 +115,7 @@ export class VacationCreateComponent {
         this.vacation.registration = this.form.value.registration;
         this.vacation.name = this.name;
         this.vacation.office = this.office;
+        this.vacation.admission = this.admission;
         this.vacation.registration = this.form.value.registration;  
         this.vacation.startVacation = this.form.value.startVacation;
         this.vacation.endVacation = this.form.value.endVacation;

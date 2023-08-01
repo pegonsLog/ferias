@@ -29,6 +29,7 @@ export class VacationService {
     registration: '',
     name: '',
     office: '',
+    admission: '',
     startVacation: new Date(),
     endVacation: new Date(),
     days: 0,

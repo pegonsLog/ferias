@@ -3,6 +3,7 @@ export interface Vacation {
     registration: string;
     name: string;
     office: string;
+    admission: string;
     startVacation: Date;
     endVacation: Date;
     days: number;
