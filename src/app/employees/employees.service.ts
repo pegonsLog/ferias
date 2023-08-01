@@ -11,7 +11,7 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { Observable, first, map } from 'rxjs';
+import { Observable, first, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Employee } from '../shared/models/employee';
 
@@ -30,7 +30,7 @@ export class EmployeesService {
     shift: '',
     office: '',
     admission: '',
-    admission2: ''
+    admission2: '',
   };
 
   constructor(private firestore: Firestore) {}
@@ -73,5 +73,15 @@ export class EmployeesService {
   update(employee: Employee, id: string) {
     let $employeeRef = doc(this.db, 'employees/' + id);
     return setDoc($employeeRef, employee);
+  }
+
+  findOneForRegistration(registration: string) {
+   return this.list()
+      .pipe(
+        map((result) =>
+          result.filter((data: Employee) => data.registration === registration)
+        )
+      ).pipe(first());
+
   }
 }

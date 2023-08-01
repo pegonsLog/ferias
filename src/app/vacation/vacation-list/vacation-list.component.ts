@@ -26,6 +26,8 @@ export class VacationListComponent implements OnInit {
   displayedColumns: string[] = [
     // 'id',
     'registration',
+    'name',
+    'office',
     'purchasing',
     'startVacation',
     'endVacation',

@@ -18,6 +18,8 @@ export class ListComponent implements OnInit {
 
   displayedColumns: string[] = [
     'registration',
+    'name',
+    'office',
     'purchasing',
     'startVacation',
     'endVacation',
