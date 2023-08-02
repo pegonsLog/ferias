@@ -104,6 +104,7 @@ export class VacationCreateComponent {
           data.filter((employee: Employee) => {
             this.office = employee.office;
             this.name = employee.name;
+            this.admission = employee.admission;
           })
         )
       ).subscribe(async () => {

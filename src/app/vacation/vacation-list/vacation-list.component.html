@@ -28,7 +28,7 @@
           <td mat-cell *matCellDef="let element">{{ element.admission }}</td>
         </ng-container>
         <ng-container matColumnDef="purchasing">
-          <th mat-header-cell *matHeaderCellDef>Período</th>
+          <th mat-header-cell *matHeaderCellDef>Aquisitivo</th>
           <td mat-cell *matCellDef="let element">{{ element.purchasing }}</td>
         </ng-container>
         <ng-container matColumnDef="startVacation">
@@ -48,6 +48,10 @@
         <ng-container matColumnDef="days">
           <th mat-header-cell *matHeaderCellDef>Dias</th>
           <td mat-cell *matCellDef="let element">{{ element.days }}</td>
+        </ng-container>
+        <ng-container matColumnDef="period">
+          <th mat-header-cell *matHeaderCellDef>Dias</th>
+          <td mat-cell *matCellDef="let element">{{ element.period }}</td>
         </ng-container>
         <ng-container matColumnDef="intprop">
           <th mat-header-cell *matHeaderCellDef>Int/Prop</th>
