@@ -34,6 +34,7 @@ export class VacationListComponent implements OnInit {
     'endVacation',
     'limit',
     'days',
+    'period',
     'intprop',
     'sell',
     'actions',

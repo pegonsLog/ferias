@@ -22,10 +22,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field
-          class="half-width"
-          [hideRequiredMarker]="true"
-        >
+        <mat-form-field class="half-width" [hideRequiredMarker]="true">
           <mat-label>Data do início</mat-label>
           <input
             style="font-family: Montserrat"
@@ -36,7 +33,10 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
+        <mat-form-field
+          class="half-width start-end"
+          [hideRequiredMarker]="true"
+        >
           <mat-label>Data do término</mat-label>
           <input
             style="font-family: Montserrat"
@@ -46,10 +46,7 @@
             formControlName="endVacation"
           />
         </mat-form-field>
-        <mat-form-field
-          class="half-width"
-          [hideRequiredMarker]="true"
-        >
+        <mat-form-field class="half-width" [hideRequiredMarker]="true">
           <mat-label>Data limite</mat-label>
           <input
             style="font-family: Montserrat"
@@ -59,14 +56,18 @@
             formControlName="limit"
           />
         </mat-form-field>
-        <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
-          <mat-label>Período aquisitivo</mat-label>
+        <mat-form-field
+          class="half-width start-end"
+          [hideRequiredMarker]="true"
+        >
+          <mat-label for="purchasing">Período aquisitivo</mat-label>
           <input
+            id="purchasing"
             style="font-family: Montserrat"
             matInput
             placeholder="Período aquisitivo"
             type="text"
-            formControlName="period"
+            formControlName="purchasing"
           />
         </mat-form-field>
         <mat-form-field class="half-width" [hideRequiredMarker]="true">
@@ -84,16 +85,19 @@
             <mat-option selected value="Prop">Prop</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="half-width start-end" [hideRequiredMarker]="true">
-          <mat-label for="purchasing">Período</mat-label>
+        <mat-form-field
+          class="half-width start-end"
+          [hideRequiredMarker]="true"
+        >
+          <mat-label for="period">Período</mat-label>
           <mat-select
             style="font-family: Montserrat"
-            id="purchasing"
+            id="period"
             class="select"
             aria-label="Período"
             placeholder="Período"
-            name="purchasing"
-            formControlName="purchasing"
+            name="period"
+            formControlName="period"
           >
             <mat-option selected value="Int">1º Per</mat-option>
             <mat-option selected value="Prop">2º Per</mat-option>
