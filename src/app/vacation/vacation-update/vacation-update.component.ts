@@ -100,6 +100,7 @@ export class VacationUpdateComponent implements OnInit {
             data.filter((employee: Employee) => {
               this.office = employee.office;
               this.name = employee.name;
+              this.admission = employee.admission
             })
           )
         )
@@ -138,6 +139,7 @@ export class VacationUpdateComponent implements OnInit {
     this.form = this.fb.group({
       id: [this.vacationUpdate.id],
       registration: [this.vacationUpdate.registration, Validators.required],
+      admission: [this.vacationUpdate.admission],
       startVacation: [this.vacationUpdate.startVacation, Validators.required],
       endVacation: [this.vacationUpdate.endVacation, Validators.required],
       purchasing: [this.vacationUpdate.purchasing, Validators.required],
@@ -175,6 +177,6 @@ export class VacationUpdateComponent implements OnInit {
     const millisecondsInADay = 1000 * 60 * 60 * 24;
     const diffInDays = Math.floor(diffInMilliseconds / millisecondsInADay);
 
-    return diffInDays;
+    return diffInDays + 1;
   }
 }

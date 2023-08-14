@@ -168,6 +168,6 @@ export class VacationCreateComponent {
     const millisecondsInADay = 1000 * 60 * 60 * 24;
     const diffInDays = Math.floor(diffInMilliseconds / millisecondsInADay);
 
-    return diffInDays;
+    return diffInDays + 1;
   }
 }
