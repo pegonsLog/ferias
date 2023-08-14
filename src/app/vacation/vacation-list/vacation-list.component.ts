@@ -4,6 +4,7 @@ import { Observable, Subscription, map } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation.component';
 import { Vacation } from 'src/app/shared/models/vacation';
 import { VacationService } from '../vacation.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-vacation-list',

@@ -25,7 +25,7 @@ export class VacationUpdateComponent implements OnInit {
   subscription: Subscription = new Subscription();
   subscription2: Subscription = new Subscription();
   @Output() typeList: EventEmitter<string> = new EventEmitter<string>();
-  main: string = 'main';
+  vacationList: string = 'vacationList';
 
   dateInputMask = createMask<Date>({
     alias: 'datetime',
@@ -75,6 +75,10 @@ export class VacationUpdateComponent implements OnInit {
     observation: '',
   };
 
+  @Output() searchTypeName: EventEmitter<string[]> = new EventEmitter<
+    string[]
+  >();
+
   constructor(
     private fb: FormBuilder,
     private vacationService: VacationService,
@@ -100,7 +104,7 @@ export class VacationUpdateComponent implements OnInit {
             data.filter((employee: Employee) => {
               this.office = employee.office;
               this.name = employee.name;
-              this.admission = employee.admission
+              this.admission = employee.admission;
             })
           )
         )
@@ -128,7 +132,12 @@ export class VacationUpdateComponent implements OnInit {
             .then(() => {
               const dialogReference = this.dialog.open(DialogUpdatedComponent);
               this.subscription = dialogReference.afterClosed().subscribe();
-              this.typeList.emit(this.main);
+              this.searchTypeName.emit([
+                this.form.value.registration,
+                '8',
+                '2023',
+                this.vacationList,
+              ]);
             })
             .catch(() => console.log('Deu erro'));
         });
