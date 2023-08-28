@@ -6,7 +6,7 @@
   <div *ngIf="dataSource$ | async" id="table-container">
     <table mat-table [dataSource]="dataSource$ | async">
       <ng-container matColumnDef="registration">
-        <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+        <th mat-header-cell *matHeaderCellDef>Mat.</th>
         <td mat-cell *matCellDef="let element">{{ element.registration }}</td>
       </ng-container>
       <ng-container matColumnDef="name">
@@ -22,13 +22,13 @@
         <td mat-cell *matCellDef="let element">{{ element.purchasing }}</td>
       </ng-container>
       <ng-container matColumnDef="startVacation">
-        <th mat-header-cell *matHeaderCellDef>Data de início</th>
+        <th mat-header-cell *matHeaderCellDef>Início</th>
         <td mat-cell *matCellDef="let element">
           {{ element.startVacation }}
         </td>
       </ng-container>
       <ng-container matColumnDef="endVacation">
-        <th mat-header-cell *matHeaderCellDef>Data do término</th>
+        <th mat-header-cell *matHeaderCellDef>Término</th>
         <td mat-cell *matCellDef="let element">{{ element.endVacation }}</td>
       </ng-container>
       <ng-container matColumnDef="days">
@@ -44,7 +44,7 @@
         <td mat-cell *matCellDef="let element">{{ element.intprop }}</td>
       </ng-container>
       <ng-container matColumnDef="sell">
-        <th mat-header-cell *matHeaderCellDef>Vendeu 1/3?</th>
+        <th mat-header-cell *matHeaderCellDef>1/3?</th>
         <td mat-cell *matCellDef="let element">{{ element.sell }}</td>
       </ng-container>
 
