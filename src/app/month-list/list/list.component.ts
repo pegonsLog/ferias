@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
     'startVacation',
     'endVacation',
     'days',
+    'period',
     'intprop',
     'sell',
   ];
