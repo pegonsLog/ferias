@@ -49,8 +49,15 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr id="lineTall" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr
+        id="lineTall"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
     </table>
     <mat-divider></mat-divider>
+  </div>
+  <div id="dateList">
+    <p>Data: {{ newDate }}</p>
   </div>
 </div>

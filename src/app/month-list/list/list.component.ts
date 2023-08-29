@@ -15,6 +15,8 @@ export class ListComponent implements OnInit {
   header: string = '';
   monthList: string = '';
   yearList: string = '';
+  now: Date = new Date();
+  newDate = this.now.toLocaleString('pt-BR' );
 
   displayedColumns: string[] = [
     'registration',
