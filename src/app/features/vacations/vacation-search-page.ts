@@ -33,18 +33,25 @@ import { employeeLabel, filterByNameOrRegistration } from '../../domain/employee
 import { SortState } from '../../domain/sort';
 import { initials } from '../../domain/text';
 import {
+  VacationFilters,
+  activeFilterCount,
+  buildFilterOptions,
+  filterVacations,
+} from '../../domain/vacation-filters';
+import {
   VacationEntry,
   VacationPerson,
   sameRegistration,
   startsInMonth,
   startsInYear,
-  sumDays,
   vacationPeople,
   yearOptions,
 } from '../../domain/vacation';
 import { EmptyState } from '../../shared/ui/empty-state';
 import { PageHeader } from '../../shared/ui/page-header';
 import { VacationEditor } from './vacation-editor';
+import { clearedFilterParams, filtersFromParams, filtersToParams } from './vacation-filter-params';
+import { VacationFiltersBar } from './vacation-filters-bar';
 import { VacationTable } from './vacation-table';
 
 export type VacationSearchMode = 'employee' | 'month' | 'year';
@@ -57,7 +64,8 @@ const HEADINGS: Readonly<Record<VacationSearchMode, string>> = {
 
 /**
  * Consultas de férias por funcionário, mês ou ano.
- * Os filtros ficam na URL (`?matricula=`, `?mes=&ano=`), permitindo voltar, favoritar e compartilhar.
+ * Os filtros ficam na URL (`?matricula=`, `?mes=&ano=`, `?ano=&cargo=&situacao=`...), permitindo
+ * voltar, favoritar e compartilhar.
  */
 @Component({
   selector: 'app-vacation-search-page',
@@ -72,6 +80,7 @@ const HEADINGS: Readonly<Record<VacationSearchMode, string>> = {
     MatProgressBarModule,
     PageHeader,
     EmptyState,
+    VacationFiltersBar,
     VacationTable,
   ],
   templateUrl: './vacation-search-page.html',
@@ -92,6 +101,11 @@ export class VacationSearchPage {
   private readonly employeeRepository = inject(EmployeeRepository);
   private readonly editor = inject(VacationEditor);
   private readonly autocomplete = viewChild(MatAutocompleteTrigger);
+
+  private readonly reference = today();
+  private readonly queryParams = toSignal(this.route.queryParams, {
+    initialValue: this.route.snapshot.queryParams,
+  });
 
   protected readonly months = MONTH_OPTIONS;
   protected readonly status = this.vacationRepository.status;
@@ -139,6 +153,23 @@ export class VacationSearchPage {
   });
   protected readonly personInitials = computed(() => initials(this.selectedPerson()?.name ?? ''));
 
+  // Filtros adicionais da consulta por ano.
+  protected readonly filters = computed<VacationFilters>(() =>
+    filtersFromParams(this.queryParams()),
+  );
+  private readonly yearEntries = computed(() =>
+    this.vacationRepository.entries().filter((entry) => startsInYear(entry, this.year())),
+  );
+  protected readonly filterOptions = computed(() =>
+    buildFilterOptions(this.yearEntries(), this.filters(), this.reference),
+  );
+  /** Há filtros adicionais ativos (somente na consulta por ano). */
+  protected readonly filtered = computed(
+    () => this.mode() === 'year' && activeFilterCount(this.filters()) > 0,
+  );
+  /** Total sem os filtros adicionais, para o resumo "X de Y". */
+  protected readonly unfilteredCount = computed(() => this.yearEntries().length);
+
   protected readonly results = computed<VacationEntry[]>(() => {
     const entries = this.vacationRepository.entries();
     switch (this.mode()) {
@@ -151,10 +182,9 @@ export class VacationSearchPage {
       case 'month':
         return entries.filter((entry) => startsInMonth(entry, this.month(), this.year()));
       case 'year':
-        return entries.filter((entry) => startsInYear(entry, this.year()));
+        return filterVacations(this.yearEntries(), this.filters(), this.reference);
     }
   });
-  protected readonly totalDays = computed(() => sumDays(this.results()));
   protected readonly hasQuery = computed(() => this.mode() !== 'employee' || !!this.registration());
   protected readonly initialSort = computed<SortState>(() =>
     this.mode() === 'employee'
@@ -225,6 +255,14 @@ export class VacationSearchPage {
 
   protected reload(): void {
     this.vacationRepository.reload();
+  }
+
+  protected applyFilters(change: Partial<VacationFilters>): void {
+    this.navigate(filtersToParams(change));
+  }
+
+  protected clearFilters(): void {
+    this.navigate(clearedFilterParams());
   }
 
   private syncPersonControl(person: VacationPerson | null): void {

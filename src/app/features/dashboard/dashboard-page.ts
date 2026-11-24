@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -32,6 +32,9 @@ export class DashboardPage {
   private readonly editor = inject(VacationEditor);
 
   protected readonly today = today();
+
+  /** Card de indicador em destaque (mouse ou foco); ergue junto o painel correspondente. */
+  protected readonly highlighted = signal<'today' | 'month' | null>(null);
   protected readonly monthLabel = monthName(this.today.getMonth() + 1).toLowerCase();
 
   protected readonly greeting = computed(() => {

@@ -1,0 +1,148 @@
+<div class="filters-grid">
+  <mat-form-field class="filters-grid__search" subscriptSizing="dynamic">
+    <mat-label>Buscar</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      #searchInput
+      [value]="searchText()"
+      (input)="onSearchInput(searchInput.value)"
+      placeholder="Nome, matrícula, cargo ou observação"
+      autocomplete="off"
+    />
+    @if (searchText()) {
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        aria-label="Limpar busca"
+        (click)="clearSearch()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Mês de início</mat-label>
+    <mat-select [value]="filters().month ?? ''" (selectionChange)="setMonth($event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().months, filters().month, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().months; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Situação</mat-label>
+    <mat-select [value]="filters().status ?? ''" (selectionChange)="setStatus($event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().statuses, filters().status, 'Todas')
+      }}</mat-select-trigger>
+      <mat-option value="">Todas</mat-option>
+      @for (option of options().statuses; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Cargo</mat-label>
+    <mat-select [value]="filters().office" (selectionChange)="setText('office', $event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().offices, filters().office, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().offices; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Aquisitivo</mat-label>
+    <mat-select
+      [value]="filters().purchasing"
+      (selectionChange)="setText('purchasing', $event.value)"
+    >
+      <mat-select-trigger>{{
+        labelOf(options().purchasing, filters().purchasing, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().purchasing; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Período</mat-label>
+    <mat-select [value]="filters().period" (selectionChange)="setText('period', $event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().periods, filters().period, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().periods; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Int/Prop</mat-label>
+    <mat-select [value]="filters().intprop" (selectionChange)="setText('intprop', $event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().intprop, filters().intprop, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().intprop; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field subscriptSizing="dynamic">
+    <mat-label>Vendeu 1/3?</mat-label>
+    <mat-select [value]="filters().sell" (selectionChange)="setText('sell', $event.value)">
+      <mat-select-trigger>{{
+        labelOf(options().sell, filters().sell, 'Todos')
+      }}</mat-select-trigger>
+      <mat-option value="">Todos</mat-option>
+      @for (option of options().sell; track option.value) {
+        <mat-option [value]="option.value">
+          {{ option.label }} <span class="count">{{ option.count }}</span>
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <div class="filters-grid__actions">
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="clearAll()"
+      [disabled]="activeCount() === 0 && !searchText()"
+    >
+      <mat-icon>filter_alt_off</mat-icon>
+      Limpar filtros
+      @if (activeCount() > 0) {
+        <span class="badge badge--info">{{ activeCount() }}</span>
+      }
+    </button>
+  </div>
+</div>

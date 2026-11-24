@@ -40,12 +40,25 @@
         <span class="stat__value">{{ loading() ? '–' : employeeCount() }}</span>
         <span class="stat__label">Funcionários cadastrados</span>
       </a>
-      <div class="card stat">
+      <div
+        class="card stat"
+        [class.stat--highlighted]="highlighted() === 'today'"
+        (mouseenter)="highlighted.set('today')"
+        (mouseleave)="highlighted.set(null)"
+      >
         <span class="stat__icon stat__icon--green"><mat-icon>beach_access</mat-icon></span>
         <span class="stat__value">{{ loading() ? '–' : onVacation().length }}</span>
         <span class="stat__label">Em férias hoje</span>
       </div>
-      <a class="card stat" routerLink="/ferias/mes">
+      <a
+        class="card stat"
+        routerLink="/ferias/mes"
+        [class.stat--highlighted]="highlighted() === 'month'"
+        (mouseenter)="highlighted.set('month')"
+        (mouseleave)="highlighted.set(null)"
+        (focus)="highlighted.set('month')"
+        (blur)="highlighted.set(null)"
+      >
         <span class="stat__icon stat__icon--violet"><mat-icon>date_range</mat-icon></span>
         <span class="stat__value">{{ loading() ? '–' : startingThisMonth() }}</span>
         <span class="stat__label">Iniciam em {{ monthLabel }}</span>
@@ -58,7 +71,7 @@
     </section>
 
     <section class="panels">
-      <article class="card panel">
+      <article class="card panel" [class.panel--highlighted]="highlighted() === 'today'">
         <header class="card__header">
           <div>
             <h3 class="card__title">Em férias agora</h3>
@@ -93,7 +106,7 @@
         }
       </article>
 
-      <article class="card panel">
+      <article class="card panel" [class.panel--highlighted]="highlighted() === 'month'">
         <header class="card__header">
           <div>
             <h3 class="card__title">Próximas férias</h3>

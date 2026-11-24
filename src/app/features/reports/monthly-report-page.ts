@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { VacationRepository } from '../../core/data/vacation-repository';
 import { MONTH_OPTIONS, monthName, toMonth, toYear, today } from '../../domain/dates';
-import { compareByStart, startsInMonth, sumDays, yearOptions } from '../../domain/vacation';
+import { compareByStart, startsInMonth, yearOptions } from '../../domain/vacation';
 import { EmptyState } from '../../shared/ui/empty-state';
 import { PageHeader } from '../../shared/ui/page-header';
 
@@ -53,7 +53,6 @@ export class MonthlyReportPage {
       .filter((entry) => startsInMonth(entry, this.month(), this.year()))
       .sort(compareByStart),
   );
-  protected readonly totalDays = computed(() => sumDays(this.rows()));
   protected readonly issuedAt = signal(new Date());
   protected readonly now = () => new Date();
 

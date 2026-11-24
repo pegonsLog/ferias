@@ -81,7 +81,9 @@
     transform 150ms ease;
 }
 
-a.stat:hover {
+a.stat:hover,
+.stat--highlighted,
+.panel--highlighted {
   box-shadow: var(--app-shadow);
   transform: translateY(-1px);
 }
@@ -135,6 +137,9 @@ a.stat:hover {
 
 .panel {
   overflow: hidden;
+  transition:
+    box-shadow 150ms ease,
+    transform 150ms ease;
 }
 
 .people {

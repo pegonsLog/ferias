@@ -90,14 +90,26 @@
         <div class="summary" aria-live="polite">
           <span class="summary__item">
             <strong>{{ results().length }}</strong>
-            {{ results().length === 1 ? 'registro' : 'registros' }}
-          </span>
-          <span class="summary__item">
-            <strong>{{ totalDays() }}</strong> {{ totalDays() === 1 ? 'dia' : 'dias' }}
+            @if (filtered()) {
+              de {{ unfilteredCount() }}
+            }
+            {{
+              (filtered() ? unfilteredCount() : results().length) === 1 ? 'registro' : 'registros'
+            }}
           </span>
         </div>
       }
     </div>
+
+    @if (mode() === 'year') {
+      <app-vacation-filters-bar
+        class="card__body year-filters"
+        [filters]="filters()"
+        [options]="filterOptions()"
+        (changed)="applyFilters($event)"
+        (cleared)="clearFilters()"
+      />
+    }
   </section>
 
   <section class="card results">
@@ -146,6 +158,24 @@
         heading="Selecione um funcionário"
         message="Digite o nome ou a matrícula no campo acima para ver o histórico de férias."
       />
+    } @else if (status() === 'ready' && results().length === 0 && filtered()) {
+      <app-empty-state
+        icon="filter_alt_off"
+        heading="Nenhuma férias corresponde aos filtros"
+        [message]="
+          'Há ' +
+          unfilteredCount() +
+          (unfilteredCount() === 1 ? ' registro' : ' registros') +
+          ' em ' +
+          year() +
+          ', mas nenhum com a combinação de filtros escolhida.'
+        "
+      >
+        <button mat-stroked-button type="button" (click)="clearFilters()">
+          <mat-icon>filter_alt_off</mat-icon>
+          Limpar filtros
+        </button>
+      </app-empty-state>
     } @else if (status() === 'ready' && results().length === 0) {
       <app-empty-state
         icon="event_busy"

@@ -1,0 +1,5 @@
+# Mantém LF em todos os sistemas (o Prettier e o .editorconfig usam LF).
+* text=auto eol=lf
+
+*.ico binary
+*.png binary
