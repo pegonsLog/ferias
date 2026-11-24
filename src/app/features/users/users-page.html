@@ -1,0 +1,132 @@
+<div class="page">
+  <app-page-header
+    heading="Usuários"
+    description="Pessoas com acesso ao sistema de controle de férias."
+  >
+    <button mat-flat-button type="button" (click)="create()">
+      <mat-icon>person_add</mat-icon>
+      Novo usuário
+    </button>
+  </app-page-header>
+
+  <section class="card list">
+    <div class="card__header">
+      <mat-form-field class="filters__search" subscriptSizing="dynamic">
+        <mat-label>Buscar</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          #searchInput
+          [value]="search()"
+          (input)="search.set(searchInput.value)"
+          placeholder="Nome ou usuário"
+        />
+        @if (search()) {
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            aria-label="Limpar busca"
+            (click)="search.set('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+      @if (status() === 'ready') {
+        <span class="muted"> {{ total() }} {{ total() === 1 ? 'usuário' : 'usuários' }} </span>
+      }
+    </div>
+
+    @if (status() === 'loading') {
+      <mat-progress-bar class="card__loading" mode="indeterminate" />
+    }
+
+    @if (status() === 'error') {
+      <app-empty-state
+        tone="error"
+        icon="cloud_off"
+        heading="Não foi possível carregar os usuários"
+        message="Verifique sua conexão com a internet e tente novamente."
+      >
+        <button mat-stroked-button type="button" (click)="reload()">
+          <mat-icon>refresh</mat-icon>
+          Tentar novamente
+        </button>
+      </app-empty-state>
+    } @else if (status() === 'ready' && rows().length === 0) {
+      <app-empty-state
+        icon="search_off"
+        heading="Nenhum resultado"
+        [message]="'Nenhum usuário corresponde a “' + search() + '”.'"
+      />
+    } @else if (status() === 'ready') {
+      <div class="table-scroll">
+        <table
+          mat-table
+          class="data-table"
+          [dataSource]="rows()"
+          matSort
+          matSortDisableClear
+          [matSortActive]="sort().active"
+          [matSortDirection]="sort().direction"
+          (matSortChange)="sort.set($event)"
+        >
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="user">
+                <span class="avatar">{{ initials(row.name) }}</span>
+                <span class="cell-strong">{{ row.name }}</span>
+                @if (row.id === currentUserId()) {
+                  <span class="badge badge--info">Você</span>
+                }
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuário</th>
+            <td mat-cell *matCellDef="let row" class="nowrap">{{ row.username }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
+            <td mat-cell *matCellDef="let row">{{ row.gender || '—' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="cell-actions">
+              <span class="visually-hidden">Ações</span>
+            </th>
+            <td mat-cell *matCellDef="let row" class="cell-actions">
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Editar"
+                [attr.aria-label]="'Editar ' + row.name"
+                (click)="edit(row)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                class="btn-danger"
+                matTooltip="Excluir"
+                [attr.aria-label]="'Excluir ' + row.name"
+                [disabled]="row.id === currentUserId()"
+                (click)="remove(row)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+      </div>
+    }
+  </section>
+</div>

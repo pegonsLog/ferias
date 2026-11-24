@@ -1,0 +1,121 @@
+<h2 mat-dialog-title>
+  <span class="dialog-icon"
+    ><mat-icon>{{ editing ? 'edit' : 'person_add' }}</mat-icon></span
+  >
+  <span class="dialog-heading">
+    <span>{{ editing ? 'Editar funcionário' : 'Novo funcionário' }}</span>
+    <span class="dialog-subtitle">
+      {{ editing ? employee?.name : 'Preencha os dados para cadastrar.' }}
+    </span>
+  </span>
+</h2>
+
+<form class="dialog-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Matrícula</mat-label>
+        <input matInput formControlName="registration" inputmode="numeric" autocomplete="off" />
+        <mat-error>
+          @if (form.controls.registration.hasError('registrationTaken')) {
+            Já existe um funcionário com esta matrícula.
+          } @else {
+            Informe a matrícula.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" autocomplete="off" />
+        <mat-error>Informe o nome.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Cargo</mat-label>
+        <input
+          matInput
+          formControlName="office"
+          [matAutocomplete]="officeAuto"
+          autocomplete="off"
+        />
+        <mat-autocomplete #officeAuto="matAutocomplete">
+          @for (option of officeOptions(); track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-autocomplete>
+        <mat-error>Informe o cargo.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Turno</mat-label>
+        <input matInput formControlName="shift" [matAutocomplete]="shiftAuto" autocomplete="off" />
+        <mat-autocomplete #shiftAuto="matAutocomplete">
+          @for (option of shiftOptions(); track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-autocomplete>
+        <mat-error>Informe o turno.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data de admissão</mat-label>
+        <input
+          matInput
+          formControlName="admission"
+          [matDatepicker]="admissionPicker"
+          [min]="minDate"
+          [max]="maxDate"
+          placeholder="dd/mm/aaaa"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="admissionPicker" />
+        <mat-datepicker #admissionPicker startView="multi-year" />
+        <mat-error>{{ dateError('admission') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>2ª data de admissão</mat-label>
+        <input
+          matInput
+          formControlName="admission2"
+          [matDatepicker]="admission2Picker"
+          [min]="minDate"
+          [max]="maxDate"
+          placeholder="dd/mm/aaaa"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="admission2Picker" />
+        <mat-datepicker #admission2Picker startView="multi-year" />
+        <mat-hint>Opcional (readmissão)</mat-hint>
+        <mat-error>{{ dateError('admission2') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    @if (willUpdateVacations()) {
+      <div class="alert alert--info form-alert">
+        <mat-icon>sync</mat-icon>
+        <span>
+          Matrícula, nome, cargo e admissão também serão atualizados nas férias já cadastradas deste
+          funcionário.
+        </span>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    @if (!editing) {
+      <button mat-button type="button" (click)="clear()" [disabled]="saving()">Limpar</button>
+    }
+    <span class="spacer"></span>
+    <button mat-button type="button" (click)="requestClose()" [disabled]="saving()">
+      Cancelar
+    </button>
+    <button mat-flat-button type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner class="button-spinner" diameter="18" />
+        Salvando...
+      } @else {
+        Salvar
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

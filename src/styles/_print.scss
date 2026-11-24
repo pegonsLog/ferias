@@ -1,0 +1,51 @@
+// Impressão: somente o conteúdo marcado como documento aparece no papel.
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  html,
+  body {
+    height: auto;
+    background: #ffffff !important;
+  }
+
+  .no-print,
+  .mat-drawer,
+  .cdk-overlay-container {
+    display: none !important;
+  }
+
+  .mat-drawer-container,
+  .mat-drawer-content {
+    height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  .mat-drawer-content {
+    margin: 0 !important;
+  }
+
+  .print-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .print-sheet table {
+    page-break-inside: auto;
+  }
+
+  .print-sheet tr {
+    page-break-inside: avoid;
+  }
+}

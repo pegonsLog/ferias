@@ -1,0 +1,158 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 56px;
+  overflow: hidden;
+  color: #e2e8f0;
+  background:
+    radial-gradient(80% 60% at 0% 0%, rgb(37 99 235 / 0.45), transparent 60%),
+    radial-gradient(70% 50% at 100% 100%, rgb(79 70 229 / 0.4), transparent 60%), #0f172a;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -120px;
+    bottom: -120px;
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgb(148 163 184 / 0.18);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 60px rgb(148 163 184 / 0.04),
+      0 0 0 120px rgb(148 163 184 / 0.03);
+  }
+}
+
+.hero__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero__logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+}
+
+.hero__name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+}
+
+.hero__title {
+  font-size: 36px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.hero__features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mat-icon {
+    color: #93c5fd;
+  }
+}
+
+.hero__footer {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.panel {
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 32px 32px;
+  box-shadow: var(--app-shadow);
+}
+
+.login-card__logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  color: var(--mat-sys-primary);
+  background: var(--mat-sys-primary-container);
+}
+
+.login-card__title {
+  font-size: 24px;
+}
+
+.login-card__subtitle {
+  margin: 4px 0 24px;
+  color: var(--app-text-muted);
+}
+
+.login-card .alert {
+  margin-bottom: 20px;
+}
+
+.login-card .mat-icon[matPrefix] {
+  margin: 0 4px 0 8px;
+  color: var(--app-text-subtle);
+}
+
+.login-card__submit {
+  height: 48px;
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+@include bp.handset {
+  .login {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero {
+    display: none;
+  }
+}

@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+
+  // Tabela mais compacta: muitas colunas precisam caber em telas de notebook.
+  @include mat.table-overrides(
+    (
+      row-item-label-text-size: 13px,
+    )
+  );
+  @include mat.icon-button-overrides(
+    (
+      state-layer-size: 36px,
+    )
+  );
+}
+
+.table-scroll {
+  max-height: calc(100vh - 300px);
+  min-height: 160px;
+}
+
+.data-table .mat-mdc-cell,
+.data-table .mat-mdc-header-cell {
+  padding-left: 8px;
+  padding-right: 8px;
+
+  &:first-child {
+    padding-left: 16px;
+  }
+
+  &:last-child {
+    padding-right: 8px;
+  }
+}
+
+.cell-name {
+  min-width: 200px;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.note-icon {
+  margin-right: 4px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--app-warning);
+  cursor: help;
+}

@@ -1,0 +1,59 @@
+@use '@angular/material' as mat;
+
+// Tema Material 3 da aplicação. As variáveis --mat-sys-* geradas aqui são usadas
+// também nos estilos próprios dos componentes.
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+        theme-type: light,
+      ),
+      typography: (
+        plain-family: Inter,
+        brand-family: Inter,
+        bold-weight: 600,
+        medium-weight: 500,
+        regular-weight: 400,
+      ),
+      density: 0,
+    )
+  );
+}
+
+// Tokens visuais próprios (cores neutras, superfícies, sombras e estados).
+:root {
+  --app-bg: #f3f5f9;
+  --app-surface: #ffffff;
+  --app-surface-muted: #f8fafc;
+  --app-border: #e2e8f0;
+  --app-border-strong: #cbd5e1;
+  --app-text: #0f172a;
+  --app-text-muted: #64748b;
+  --app-text-subtle: #94a3b8;
+
+  --app-sidebar-bg: #0f172a;
+  --app-sidebar-elevated: #1e293b;
+  --app-sidebar-text: #94a3b8;
+  --app-sidebar-text-strong: #f1f5f9;
+
+  --app-radius-sm: 8px;
+  --app-radius: 12px;
+  --app-radius-lg: 16px;
+  --app-shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
+  --app-shadow: 0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.06);
+
+  --app-success: #15803d;
+  --app-success-bg: #dcfce7;
+  --app-warning: #b45309;
+  --app-warning-bg: #fef3c7;
+  --app-danger: #b91c1c;
+  --app-danger-bg: #fee2e2;
+  --app-info: #1d4ed8;
+  --app-info-bg: #dbeafe;
+  --app-neutral: #475569;
+  --app-neutral-bg: #f1f5f9;
+}

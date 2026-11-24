@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>
+  <span class="dialog-icon"
+    ><mat-icon>{{ editing ? 'manage_accounts' : 'person_add' }}</mat-icon></span
+  >
+  <span class="dialog-heading">
+    <span>{{ editing ? 'Editar usuário' : 'Novo usuário' }}</span>
+    <span class="dialog-subtitle">
+      {{ editing ? user?.name : 'Crie um acesso ao sistema.' }}
+    </span>
+  </span>
+</h2>
+
+<form class="dialog-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Usuário (matrícula)</mat-label>
+        <input matInput formControlName="username" inputmode="numeric" autocomplete="off" />
+        <mat-error>
+          @if (form.controls.username.hasError('usernameTaken')) {
+            Este usuário já existe.
+          } @else {
+            Informe o usuário.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="gender">
+          @for (gender of genders; track gender) {
+            <mat-option [value]="gender">{{ gender }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint>Usado na saudação</mat-hint>
+        <mat-error>Selecione uma opção.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="span-2">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" autocomplete="off" />
+        <mat-error>Informe o nome.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="span-2">
+        <mat-label>{{ editing ? 'Nova senha' : 'Senha' }}</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="showPassword() ? 'text' : 'password'"
+          autocomplete="new-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword.set(!showPassword())"
+          [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+          [attr.aria-pressed]="showPassword()"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-hint>
+          {{
+            editing
+              ? 'Deixe em branco para manter a senha atual.'
+              : 'Mínimo de ' + minPasswordLength + ' caracteres.'
+          }}
+        </mat-hint>
+        <mat-error>{{ passwordError() }}</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    @if (!editing) {
+      <button mat-button type="button" (click)="clear()" [disabled]="saving()">Limpar</button>
+    }
+    <span class="spacer"></span>
+    <button mat-button type="button" (click)="requestClose()" [disabled]="saving()">
+      Cancelar
+    </button>
+    <button mat-flat-button type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner class="button-spinner" diameter="18" />
+        Salvando...
+      } @else {
+        Salvar
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

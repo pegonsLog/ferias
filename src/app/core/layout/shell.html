@@ -1,0 +1,121 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="sidebar"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="sidenavOpened()"
+    (openedChange)="sidenavOpened.set($event)"
+    [fixedInViewport]="isHandset()"
+  >
+    <div class="sidebar__inner">
+      <a class="brand" routerLink="/inicio" aria-label="Ir para o início">
+        <span class="brand__logo"><mat-icon>beach_access</mat-icon></span>
+        <span class="brand__text">
+          <span class="brand__name">GARBO</span>
+          <span class="brand__tagline">Controle de Férias</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Menu principal">
+        @for (section of navigation; track section.title) {
+          <div class="nav__section">
+            <div class="nav__title">{{ section.title }}</div>
+            @for (item of section.items; track item.label) {
+              @if (item.route) {
+                <a
+                  class="nav__item"
+                  [routerLink]="item.route"
+                  routerLinkActive="nav__item--active"
+                  ariaCurrentWhenActive="page"
+                >
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  <span>{{ item.label }}</span>
+                </a>
+              } @else {
+                <button
+                  type="button"
+                  class="nav__item nav__item--action"
+                  (click)="run(item.action)"
+                >
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                  <span>{{ item.label }}</span>
+                  <mat-icon class="nav__item-hint">add</mat-icon>
+                </button>
+              }
+            }
+          </div>
+        }
+      </nav>
+
+      @if (user(); as current) {
+        <div class="sidebar__user">
+          <span class="avatar">{{ initials() }}</span>
+          <span class="sidebar__user-text">
+            <span class="sidebar__user-name">{{ current.name }}</span>
+            <span class="sidebar__user-login">Usuário {{ current.username }}</span>
+          </span>
+          <button
+            mat-icon-button
+            type="button"
+            class="sidebar__logout"
+            matTooltip="Sair"
+            aria-label="Sair do sistema"
+            (click)="logout()"
+          >
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <header class="topbar no-print">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="toggleSidenav()"
+        [attr.aria-expanded]="sidenavOpened()"
+        aria-label="Mostrar ou ocultar o menu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="topbar__title">
+        @if (pageSection()) {
+          <span class="topbar__section">{{ pageSection() }}</span>
+          <mat-icon class="topbar__separator">chevron_right</mat-icon>
+        }
+        <span class="topbar__page">{{ pageTitle() }}</span>
+      </div>
+
+      <span class="spacer"></span>
+
+      <button type="button" class="user-chip" [matMenuTriggerFor]="userMenu">
+        <span class="avatar">{{ initials() }}</span>
+        <span class="user-chip__text">{{ firstName() }}</span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        @if (user(); as current) {
+          <div class="user-menu__header">
+            <strong>{{ current.name }}</strong>
+            <span class="muted">Usuário {{ current.username }}</span>
+          </div>
+          <mat-divider />
+        }
+        <a mat-menu-item routerLink="/usuarios">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>Usuários</span>
+        </a>
+        <button mat-menu-item type="button" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </header>
+
+    <main class="main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

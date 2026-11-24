@@ -1,0 +1,82 @@
+<div class="login">
+  <section class="hero" aria-hidden="true">
+    <div class="hero__brand">
+      <span class="hero__logo"><mat-icon>beach_access</mat-icon></span>
+      <span class="hero__name">GARBO</span>
+    </div>
+
+    <div class="hero__content">
+      <h2 class="hero__title">Férias da equipe organizadas em um só lugar.</h2>
+      <ul class="hero__features">
+        <li>
+          <mat-icon>event_available</mat-icon> Cadastro de férias com cálculo automático de dias
+        </li>
+        <li><mat-icon>manage_search</mat-icon> Consultas por funcionário, mês e ano</li>
+        <li><mat-icon>print</mat-icon> Lista mensal pronta para impressão</li>
+      </ul>
+    </div>
+
+    <p class="hero__footer">© {{ year }} GARBO · Controle de Férias</p>
+  </section>
+
+  <section class="panel">
+    <form class="card login-card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <span class="login-card__logo"><mat-icon>beach_access</mat-icon></span>
+      <h1 class="login-card__title">Controle de Férias</h1>
+      <p class="login-card__subtitle">Entre com seu usuário e senha para continuar.</p>
+
+      @if (error()) {
+        <div class="alert alert--error" role="alert">
+          <mat-icon>error</mat-icon>
+          <span>{{ error() }}</span>
+        </div>
+      }
+
+      <mat-form-field class="full-width">
+        <mat-label>Usuário</mat-label>
+        <mat-icon matPrefix>badge</mat-icon>
+        <input
+          matInput
+          formControlName="username"
+          inputmode="numeric"
+          autocomplete="username"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+        <mat-error>Informe o usuário.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input
+          matInput
+          formControlName="password"
+          [type]="showPassword() ? 'text' : 'password'"
+          inputmode="numeric"
+          autocomplete="current-password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="showPassword.set(!showPassword())"
+          [attr.aria-label]="showPassword() ? 'Ocultar senha' : 'Mostrar senha'"
+          [attr.aria-pressed]="showPassword()"
+        >
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>Informe a senha.</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button class="login-card__submit" type="submit" [disabled]="loading()">
+        @if (loading()) {
+          <mat-spinner class="button-spinner" diameter="18" />
+          Entrando...
+        } @else {
+          Entrar
+        }
+      </button>
+    </form>
+  </section>
+</div>

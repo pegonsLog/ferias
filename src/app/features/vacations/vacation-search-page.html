@@ -1,0 +1,174 @@
+<div class="page">
+  <app-page-header [heading]="heading()" [description]="description()">
+    <button mat-flat-button type="button" (click)="add()">
+      <mat-icon>add</mat-icon>
+      Adicionar férias
+    </button>
+  </app-page-header>
+
+  <section class="card" aria-label="Filtros">
+    <div class="card__body filters">
+      @switch (mode()) {
+        @case ('employee') {
+          <mat-form-field class="filters__search" subscriptSizing="dynamic">
+            <mat-label>Funcionário</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+              matInput
+              [formControl]="personControl"
+              [matAutocomplete]="personAuto"
+              placeholder="Nome ou matrícula"
+              (keydown.enter)="searchTyped($event)"
+            />
+            @if (personControl.value) {
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                aria-label="Limpar busca"
+                (click)="clearPerson()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            }
+            <mat-autocomplete
+              #personAuto="matAutocomplete"
+              [displayWith]="displayPerson"
+              (optionSelected)="selectPerson($event.option.value)"
+            >
+              @for (person of personOptions(); track person.registration) {
+                <mat-option [value]="person">
+                  <span class="option">
+                    <span class="option__name">
+                      {{ person.name || 'Sem nome' }}
+                      @if (!person.registered) {
+                        <span class="badge badge--warning">sem cadastro</span>
+                      }
+                    </span>
+                    <span class="option__meta">Mat. {{ person.registration }}</span>
+                  </span>
+                </mat-option>
+              } @empty {
+                <mat-option disabled>Nenhum funcionário encontrado</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        }
+        @case ('month') {
+          <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Mês</mat-label>
+            <mat-select [value]="month()" (selectionChange)="setMonth($event.value)">
+              @for (option of months; track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Ano</mat-label>
+            <mat-select [value]="year()" (selectionChange)="setYear($event.value)">
+              @for (option of years(); track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        @case ('year') {
+          <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Ano</mat-label>
+            <mat-select [value]="year()" (selectionChange)="setYear($event.value)">
+              @for (option of years(); track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+      }
+
+      <span class="spacer"></span>
+
+      @if (hasQuery() && status() === 'ready') {
+        <div class="summary" aria-live="polite">
+          <span class="summary__item">
+            <strong>{{ results().length }}</strong>
+            {{ results().length === 1 ? 'registro' : 'registros' }}
+          </span>
+          <span class="summary__item">
+            <strong>{{ totalDays() }}</strong> {{ totalDays() === 1 ? 'dia' : 'dias' }}
+          </span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card results">
+    @if (status() === 'loading') {
+      <mat-progress-bar class="card__loading" mode="indeterminate" />
+    }
+
+    @if (mode() === 'employee' && selectedPerson(); as person) {
+      <div class="person">
+        <span class="avatar">{{ personInitials() }}</span>
+        <div class="person__text">
+          <div class="person__name">
+            {{ person.name || 'Matrícula ' + person.registration }}
+            @if (!person.registered) {
+              <span class="badge badge--warning">sem cadastro</span>
+            }
+          </div>
+          <div class="person__meta">
+            Mat. {{ person.registration }}
+            @if (person.office) {
+              · {{ person.office }}
+            }
+            @if (person.admission) {
+              · Admissão {{ person.admission }}
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (status() === 'error') {
+      <app-empty-state
+        tone="error"
+        icon="cloud_off"
+        heading="Não foi possível carregar as férias"
+        message="Verifique sua conexão com a internet e tente novamente."
+      >
+        <button mat-stroked-button type="button" (click)="reload()">
+          <mat-icon>refresh</mat-icon>
+          Tentar novamente
+        </button>
+      </app-empty-state>
+    } @else if (!hasQuery()) {
+      <app-empty-state
+        icon="person_search"
+        heading="Selecione um funcionário"
+        message="Digite o nome ou a matrícula no campo acima para ver o histórico de férias."
+      />
+    } @else if (status() === 'ready' && results().length === 0) {
+      <app-empty-state
+        icon="event_busy"
+        heading="Nenhuma férias encontrada"
+        [message]="
+          mode() === 'employee'
+            ? 'Este funcionário ainda não tem férias cadastradas.'
+            : 'Não há férias com início no período selecionado.'
+        "
+      >
+        <button mat-stroked-button type="button" (click)="add()">
+          <mat-icon>add</mat-icon>
+          Adicionar férias
+        </button>
+      </app-empty-state>
+    } @else if (results().length > 0) {
+      <app-vacation-table
+        [entries]="results()"
+        [showEmployee]="mode() !== 'employee'"
+        [initialSort]="initialSort()"
+        (edit)="edit($event)"
+        (remove)="remove($event)"
+      />
+    }
+  </section>
+</div>

@@ -1,4 +1,9 @@
+/**
+ * Configuração usada por `ng serve` (configuração "development").
+ * Atenção: aponta para o mesmo projeto Firebase de produção.
+ */
 export const environment = {
+  production: false,
   firebase: {
     projectId: 'ferias-garbo',
     appId: '1:1031639896422:web:ec6d44b2bb594134f138a7',
@@ -8,5 +13,4 @@ export const environment = {
     messagingSenderId: '1031639896422',
     measurementId: 'G-SMBQ5CPQDT',
   },
-  production: false
 };

@@ -1,0 +1,134 @@
+<div class="page">
+  <section class="welcome">
+    <div class="welcome__text">
+      <p class="welcome__date">{{ today | date: 'fullDate' }}</p>
+      <h2 class="welcome__title">{{ greeting() }}</h2>
+      <p class="welcome__subtitle">
+        Acompanhe as férias da equipe e acesse rapidamente as principais funções.
+      </p>
+    </div>
+    <div class="welcome__actions">
+      <button mat-flat-button type="button" class="welcome__primary" (click)="addVacation()">
+        <mat-icon>add</mat-icon>
+        Adicionar férias
+      </button>
+      <a mat-stroked-button class="welcome__secondary" routerLink="/relatorios/lista-mensal">
+        <mat-icon>print</mat-icon>
+        Lista mensal
+      </a>
+    </div>
+  </section>
+
+  @if (failed()) {
+    <section class="card">
+      <app-empty-state
+        tone="error"
+        icon="cloud_off"
+        heading="Não foi possível carregar os dados"
+        message="Verifique sua conexão com a internet e tente novamente."
+      >
+        <button mat-stroked-button type="button" (click)="retry()">
+          <mat-icon>refresh</mat-icon>
+          Tentar novamente
+        </button>
+      </app-empty-state>
+    </section>
+  } @else {
+    <section class="stats" aria-label="Indicadores">
+      <a class="card stat" routerLink="/funcionarios">
+        <span class="stat__icon stat__icon--blue"><mat-icon>groups</mat-icon></span>
+        <span class="stat__value">{{ loading() ? '–' : employeeCount() }}</span>
+        <span class="stat__label">Funcionários cadastrados</span>
+      </a>
+      <div class="card stat">
+        <span class="stat__icon stat__icon--green"><mat-icon>beach_access</mat-icon></span>
+        <span class="stat__value">{{ loading() ? '–' : onVacation().length }}</span>
+        <span class="stat__label">Em férias hoje</span>
+      </div>
+      <a class="card stat" routerLink="/ferias/mes">
+        <span class="stat__icon stat__icon--violet"><mat-icon>date_range</mat-icon></span>
+        <span class="stat__value">{{ loading() ? '–' : startingThisMonth() }}</span>
+        <span class="stat__label">Iniciam em {{ monthLabel }}</span>
+      </a>
+      <div class="card stat">
+        <span class="stat__icon stat__icon--amber"><mat-icon>upcoming</mat-icon></span>
+        <span class="stat__value">{{ loading() ? '–' : nextVacations().length }}</span>
+        <span class="stat__label">Começam nos próximos 30 dias</span>
+      </div>
+    </section>
+
+    <section class="panels">
+      <article class="card panel">
+        <header class="card__header">
+          <div>
+            <h3 class="card__title">Em férias agora</h3>
+            <p class="card__subtitle">Funcionários com férias em andamento hoje</p>
+          </div>
+        </header>
+        @if (loading()) {
+          <mat-progress-bar class="card__loading" mode="indeterminate" />
+        } @else if (onVacationPreview().length === 0) {
+          <app-empty-state icon="work" heading="Ninguém em férias hoje" />
+        } @else {
+          <ul class="people">
+            @for (entry of onVacationPreview(); track entry.id) {
+              <li class="people__item">
+                <span class="avatar">{{ initials(entry.name) }}</span>
+                <span class="people__text">
+                  <span class="people__name">{{ entry.name }}</span>
+                  <span class="people__meta">Até {{ entry.endVacation }}</span>
+                </span>
+                <span class="badge badge--success">
+                  {{ daysLeft(entry) }}
+                  {{ daysLeft(entry) === 1 ? 'dia restante' : 'dias restantes' }}
+                </span>
+              </li>
+            }
+          </ul>
+          @if (onVacation().length > onVacationPreview().length) {
+            <p class="panel__more muted">
+              e mais {{ onVacation().length - onVacationPreview().length }}
+            </p>
+          }
+        }
+      </article>
+
+      <article class="card panel">
+        <header class="card__header">
+          <div>
+            <h3 class="card__title">Próximas férias</h3>
+            <p class="card__subtitle">Início nos próximos 30 dias</p>
+          </div>
+          <a mat-button routerLink="/ferias/mes">Ver mês</a>
+        </header>
+        @if (loading()) {
+          <mat-progress-bar class="card__loading" mode="indeterminate" />
+        } @else if (nextPreview().length === 0) {
+          <app-empty-state icon="event_available" heading="Nenhuma férias nos próximos 30 dias" />
+        } @else {
+          <ul class="people">
+            @for (entry of nextPreview(); track entry.id) {
+              <li class="people__item">
+                <span class="avatar">{{ initials(entry.name) }}</span>
+                <span class="people__text">
+                  <span class="people__name">{{ entry.name }}</span>
+                  <span class="people__meta">
+                    {{ entry.startVacation }} a {{ entry.endVacation }} · {{ entry.totalDays }} dias
+                  </span>
+                </span>
+                <span class="badge badge--info">
+                  {{ daysUntil(entry) === 1 ? 'amanhã' : 'em ' + daysUntil(entry) + ' dias' }}
+                </span>
+              </li>
+            }
+          </ul>
+          @if (nextVacations().length > nextPreview().length) {
+            <p class="panel__more muted">
+              e mais {{ nextVacations().length - nextPreview().length }}
+            </p>
+          }
+        }
+      </article>
+    </section>
+  }
+</div>

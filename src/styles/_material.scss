@@ -1,0 +1,147 @@
+@use '@angular/material' as mat;
+
+// Ajustes finos dos componentes do Angular Material via tokens oficiais.
+html {
+  @include mat.sidenav-overrides(
+    (
+      container-background-color: var(--app-sidebar-bg),
+      container-text-color: var(--app-sidebar-text),
+      container-shape: 0,
+      container-width: 272px,
+      container-divider-color: transparent,
+      content-background-color: var(--app-bg),
+      content-text-color: var(--app-text),
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 10px,
+      outlined-container-shape: 10px,
+      text-container-shape: 10px,
+      tonal-container-shape: 10px,
+      protected-container-shape: 10px,
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      outlined-container-shape: 10px,
+      outlined-outline-color: var(--app-border-strong),
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 18px,
+      container-color: var(--app-surface),
+      subhead-weight: 600,
+      supporting-text-color: var(--app-text),
+    )
+  );
+
+  @include mat.table-overrides(
+    (
+      background-color: transparent,
+      header-headline-color: var(--app-text-muted),
+      header-headline-weight: 600,
+      header-headline-size: 12px,
+      header-container-height: 44px,
+      row-item-container-height: 50px,
+      row-item-outline-color: var(--app-border),
+      row-item-label-text-size: 14px,
+      row-item-label-text-color: var(--app-text),
+    )
+  );
+
+  @include mat.paginator-overrides(
+    (
+      container-background-color: transparent,
+      container-text-color: var(--app-text-muted),
+    )
+  );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-shape: 12px,
+    )
+  );
+}
+
+// Variações de snackbar (ver NotificationService).
+.snack--success {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #14532d,
+      supporting-text-color: #ffffff,
+      button-color: #bbf7d0,
+    )
+  );
+}
+
+.snack--error {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #7f1d1d,
+      supporting-text-color: #ffffff,
+      button-color: #fecaca,
+    )
+  );
+}
+
+// Botão de ação destrutiva (excluir).
+.btn-danger {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--mat-sys-error),
+      filled-label-text-color: var(--mat-sys-on-error),
+      text-label-text-color: var(--mat-sys-error),
+    )
+  );
+  @include mat.icon-button-overrides(
+    (
+      icon-color: var(--mat-sys-error),
+    )
+  );
+}
+
+// Cabeçalho das tabelas com fundo sutil.
+.mat-mdc-header-row {
+  background: var(--app-surface-muted);
+}
+
+.mat-mdc-header-cell {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.mat-mdc-row {
+  transition: background-color 120ms ease;
+}
+
+.mat-mdc-row:hover {
+  background: var(--app-surface-muted);
+}
+
+// Diálogos: título com ícone e rodapé alinhado.
+.mat-mdc-dialog-container .mat-mdc-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mat-mdc-dialog-actions {
+  gap: 8px;
+}
+
+// Menus com cantos arredondados.
+.mat-mdc-menu-panel {
+  border-radius: 12px !important;
+}
+
+// Dias já ocupados por outras férias no calendário do formulário.
+.calendar-taken-day .mat-calendar-body-cell-content {
+  background: var(--app-warning-bg);
+  color: var(--app-warning);
+}

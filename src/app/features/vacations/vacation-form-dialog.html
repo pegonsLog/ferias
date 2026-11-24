@@ -1,0 +1,187 @@
+<h2 mat-dialog-title>
+  <span class="dialog-icon"><mat-icon>beach_access</mat-icon></span>
+  <span class="dialog-heading">
+    <span>{{ editing ? 'Editar férias' : 'Adicionar férias' }}</span>
+    <span class="dialog-subtitle">
+      {{ editing ? 'Altere os dados e salve.' : 'Informe os dados das férias do funcionário.' }}
+    </span>
+  </span>
+</h2>
+
+<form class="dialog-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <mat-dialog-content>
+    @if (!editing && employeesStatus() === 'ready' && employees().length === 0) {
+      <div class="alert alert--info form-alert">
+        <mat-icon>info</mat-icon>
+        <span>
+          Nenhum funcionário cadastrado.
+          <a routerLink="/funcionarios" (click)="requestClose()">Cadastre um funcionário</a>
+          antes de adicionar férias.
+        </span>
+      </div>
+    }
+
+    <div class="form-grid">
+      <mat-form-field class="span-2">
+        <mat-label>Funcionário</mat-label>
+        <mat-icon matPrefix>person_search</mat-icon>
+        <input
+          matInput
+          formControlName="employee"
+          [matAutocomplete]="employeeAuto"
+          placeholder="Digite o nome ou a matrícula"
+        />
+        <mat-autocomplete
+          #employeeAuto="matAutocomplete"
+          [displayWith]="displayEmployee"
+          autoActiveFirstOption
+        >
+          @for (employee of employeeOptions(); track employee.id) {
+            <mat-option [value]="employee">
+              <span class="option">
+                <span class="option__name">{{ employee.name }}</span>
+                <span class="option__meta">
+                  Mat. {{ employee.registration }} · Admissão {{ employee.admission || '—' }}
+                </span>
+              </span>
+            </mat-option>
+          } @empty {
+            <mat-option disabled>Nenhum funcionário encontrado</mat-option>
+          }
+        </mat-autocomplete>
+        @if (selectedEmployee(); as employee) {
+          <mat-hint>
+            {{ employee.office || 'Cargo não informado' }} · Turno {{ employee.shift || '—' }} ·
+            Admissão {{ employee.admission || '—' }}
+          </mat-hint>
+        }
+        <mat-error>{{ employeeError() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Período de gozo</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker" [min]="minDate" [max]="maxDate">
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Início"
+            (dateInput)="revalidate('end')"
+          />
+          <input
+            matEndDate
+            formControlName="end"
+            placeholder="Término"
+            (dateInput)="revalidate('start')"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker" />
+        <mat-date-range-picker #rangePicker [dateClass]="dateClass" />
+        <mat-hint>
+          @if (days()) {
+            <strong class="days-count">{{ formatDayCount(days()) }}</strong>
+          } @else {
+            dd/mm/aaaa – dd/mm/aaaa
+          }
+        </mat-hint>
+        <mat-error>{{ rangeError() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data limite</mat-label>
+        <input
+          matInput
+          formControlName="limit"
+          [matDatepicker]="limitPicker"
+          [min]="minDate"
+          [max]="maxDate"
+          placeholder="dd/mm/aaaa"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="limitPicker" />
+        <mat-datepicker #limitPicker />
+        <mat-hint>Opcional</mat-hint>
+        <mat-error>Data inválida. Use o formato dd/mm/aaaa.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Período aquisitivo</mat-label>
+        <mat-select formControlName="purchasing">
+          @for (option of purchasingOptions(); track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Selecione o período aquisitivo.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Período</mat-label>
+        <mat-select formControlName="period">
+          @for (option of periods; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Selecione o período.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Int/Prop</mat-label>
+        <mat-select formControlName="intprop">
+          @for (option of intPropOptions; track option.value) {
+            <mat-option [value]="option.value">{{ option.label }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>Selecione integral ou proporcional.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Vendeu 1/3?</mat-label>
+        <mat-select formControlName="sell">
+          <mat-option value="">Não informado</mat-option>
+          @for (option of sellOptions; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="span-2">
+        <mat-label>Observações</mat-label>
+        <textarea
+          matInput
+          formControlName="observation"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="6"
+        ></textarea>
+        <mat-hint align="end">{{ form.controls.observation.value.length }}/1000</mat-hint>
+        <mat-error>Máximo de 1000 caracteres.</mat-error>
+      </mat-form-field>
+    </div>
+
+    @if (overlapConflict(); as conflict) {
+      <div class="alert alert--error form-alert" role="alert">
+        <mat-icon>event_busy</mat-icon>
+        <span>
+          Este funcionário já tem férias de <strong>{{ conflict.startVacation }}</strong> a
+          <strong>{{ conflict.endVacation }}</strong>, que coincidem com o período informado.
+        </span>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    @if (!editing) {
+      <button mat-button type="button" (click)="clear()" [disabled]="saving()">Limpar</button>
+    }
+    <span class="spacer"></span>
+    <button mat-button type="button" (click)="requestClose()" [disabled]="saving()">
+      Cancelar
+    </button>
+    <button mat-flat-button type="submit" [disabled]="saving()">
+      @if (saving()) {
+        <mat-spinner class="button-spinner" diameter="18" />
+        Salvando...
+      } @else {
+        Salvar
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

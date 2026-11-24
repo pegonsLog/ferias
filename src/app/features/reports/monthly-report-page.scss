@@ -1,0 +1,110 @@
+.print-sheet {
+  padding: 28px 32px;
+  overflow: hidden;
+}
+
+.print-sheet .card__loading {
+  margin: -28px -32px 25px;
+}
+
+.sheet__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--app-text);
+}
+
+.sheet__company {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--app-text-muted);
+}
+
+.sheet__title {
+  margin-top: 4px;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.sheet__totals {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--app-text-muted);
+
+  strong {
+    color: var(--app-text);
+  }
+}
+
+.sheet__totals--hidden {
+  visibility: hidden;
+}
+
+.sheet__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th,
+  td {
+    padding: 9px 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--app-border);
+    white-space: nowrap;
+  }
+
+  th {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--app-text-muted);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--app-surface-muted);
+  }
+
+  .num {
+    text-align: right;
+  }
+}
+
+.sheet__name {
+  width: 100%;
+  font-weight: 600;
+  white-space: normal !important;
+}
+
+.sheet__footer {
+  margin-top: 24px;
+  font-size: 12px;
+  text-align: right;
+  color: var(--app-text-muted);
+}
+
+@media print {
+  .sheet__table {
+    font-size: 10pt;
+
+    th,
+    td {
+      padding: 5px 6px;
+      border-bottom-color: #cbd5e1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: transparent;
+    }
+  }
+
+  .sheet__title {
+    font-size: 16pt;
+  }
+}

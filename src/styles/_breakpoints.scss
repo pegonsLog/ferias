@@ -1,0 +1,15 @@
+// Pontos de quebra compartilhados com os estilos dos componentes.
+$handset-max: 959.98px;
+$phone-max: 599.98px;
+
+@mixin handset {
+  @media (max-width: $handset-max) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: $phone-max) {
+    @content;
+  }
+}

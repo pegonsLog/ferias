@@ -1,0 +1,172 @@
+<div class="page">
+  <app-page-header
+    heading="Funcionários"
+    [description]="
+      status() === 'ready'
+        ? total() + (total() === 1 ? ' funcionário cadastrado.' : ' funcionários cadastrados.')
+        : 'Cadastro de funcionários.'
+    "
+  >
+    <button mat-flat-button type="button" (click)="create()">
+      <mat-icon>person_add</mat-icon>
+      Novo funcionário
+    </button>
+  </app-page-header>
+
+  <section class="card list">
+    <div class="card__header">
+      <mat-form-field class="filters__search" subscriptSizing="dynamic">
+        <mat-label>Buscar</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          #searchInput
+          [value]="search()"
+          (input)="onSearch(searchInput.value)"
+          placeholder="Nome, matrícula, cargo ou turno"
+        />
+        @if (search()) {
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            aria-label="Limpar busca"
+            (click)="onSearch('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+      @if (search() && status() === 'ready') {
+        <span class="muted">{{ filtered().length }} de {{ total() }}</span>
+      }
+    </div>
+
+    @if (status() === 'loading') {
+      <mat-progress-bar class="card__loading" mode="indeterminate" />
+    }
+
+    @if (status() === 'error') {
+      <app-empty-state
+        tone="error"
+        icon="cloud_off"
+        heading="Não foi possível carregar os funcionários"
+        message="Verifique sua conexão com a internet e tente novamente."
+      >
+        <button mat-stroked-button type="button" (click)="reload()">
+          <mat-icon>refresh</mat-icon>
+          Tentar novamente
+        </button>
+      </app-empty-state>
+    } @else if (status() === 'ready' && total() === 0) {
+      <app-empty-state
+        icon="groups"
+        heading="Nenhum funcionário cadastrado"
+        message="Cadastre os funcionários para poder registrar as férias."
+      >
+        <button mat-stroked-button type="button" (click)="create()">
+          <mat-icon>person_add</mat-icon>
+          Novo funcionário
+        </button>
+      </app-empty-state>
+    } @else if (status() === 'ready' && filtered().length === 0) {
+      <app-empty-state
+        icon="search_off"
+        heading="Nenhum resultado"
+        [message]="'Nenhum funcionário corresponde a “' + search() + '”.'"
+      />
+    } @else if (status() === 'ready') {
+      <div class="table-scroll">
+        <table
+          mat-table
+          class="data-table"
+          [dataSource]="rows()"
+          matSort
+          matSortDisableClear
+          [matSortActive]="sort().active"
+          [matSortDirection]="sort().direction"
+          (matSortChange)="onSort($event)"
+        >
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Funcionário</th>
+            <td mat-cell *matCellDef="let row" class="cell-strong">{{ row.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="registration">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Matrícula</th>
+            <td mat-cell *matCellDef="let row" class="nowrap">{{ row.registration }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="office">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cargo</th>
+            <td mat-cell *matCellDef="let row">{{ row.office || '—' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="shift">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Turno</th>
+            <td mat-cell *matCellDef="let row">{{ row.shift || '—' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="admission">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Admissão</th>
+            <td mat-cell *matCellDef="let row" class="nowrap">{{ row.admission || '—' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="admission2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>2ª admissão</th>
+            <td mat-cell *matCellDef="let row" class="nowrap">{{ row.admission2 || '—' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="cell-actions">
+              <span class="visually-hidden">Ações</span>
+            </th>
+            <td mat-cell *matCellDef="let row" class="cell-actions">
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Ver férias"
+                [attr.aria-label]="'Ver férias de ' + row.name"
+                (click)="viewVacations(row)"
+              >
+                <mat-icon>event_note</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                matTooltip="Editar"
+                [attr.aria-label]="'Editar ' + row.name"
+                (click)="edit(row)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                class="btn-danger"
+                matTooltip="Excluir"
+                [attr.aria-label]="'Excluir ' + row.name"
+                (click)="remove(row)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns"></tr>
+        </table>
+      </div>
+
+      <mat-paginator
+        [length]="filtered().length"
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="pageSizes"
+        (page)="onPage($event)"
+        showFirstLastButtons
+        aria-label="Paginação dos funcionários"
+      />
+    }
+  </section>
+</div>
