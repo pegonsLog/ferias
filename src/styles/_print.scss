@@ -34,6 +34,16 @@
     margin: 0 !important;
   }
 
+  .table-scroll {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .print-sheet th {
+    position: static !important;
+    box-shadow: none !important;
+  }
+
   .print-sheet {
     border: none !important;
     box-shadow: none !important;

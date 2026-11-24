@@ -26,6 +26,12 @@ html {
 
 // Tokens visuais próprios (cores neutras, superfícies, sombras e estados).
 :root {
+  // Medidas do layout (barra superior e espaçamento da área de conteúdo).
+  --app-topbar-height: 64px;
+  --app-page-pad-top: 28px;
+  --app-page-pad-x: 28px;
+  --app-page-pad-bottom: 40px;
+
   --app-bg: #f3f5f9;
   --app-surface: #ffffff;
   --app-surface-muted: #f8fafc;
@@ -56,4 +62,12 @@ html {
   --app-info-bg: #dbeafe;
   --app-neutral: #475569;
   --app-neutral-bg: #f1f5f9;
+}
+
+@media (max-width: 959.98px) {
+  :root {
+    --app-page-pad-top: 20px;
+    --app-page-pad-x: 16px;
+    --app-page-pad-bottom: 32px;
+  }
 }

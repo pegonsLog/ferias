@@ -16,11 +16,6 @@
   );
 }
 
-.table-scroll {
-  max-height: calc(100vh - 300px);
-  min-height: 160px;
-}
-
 .data-table .mat-mdc-cell,
 .data-table .mat-mdc-header-cell {
   padding-left: 8px;

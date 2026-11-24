@@ -2,11 +2,6 @@
   overflow: hidden;
 }
 
-.table-scroll {
-  max-height: calc(100vh - 330px);
-  min-height: 160px;
-}
-
 mat-paginator {
   border-top: 1px solid var(--app-border);
 }

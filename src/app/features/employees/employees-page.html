@@ -76,7 +76,7 @@
         [message]="'Nenhum funcionário corresponde a “' + search() + '”.'"
       />
     } @else if (status() === 'ready') {
-      <div class="table-scroll">
+      <div class="table-scroll" [appVisibleRows]="7">
         <table
           mat-table
           class="data-table"

@@ -105,8 +105,10 @@ html {
   );
 }
 
-// Cabeçalho das tabelas com fundo sutil.
-.mat-mdc-header-row {
+// Cabeçalho das tabelas: fundo opaco nas próprias células, pois o cabeçalho fica fixo e as
+// linhas passam por baixo dele. (O Material aplica `background: inherit` nas linhas depois
+// destes estilos, por isso o seletor é mais específico.)
+.mat-mdc-table .mat-mdc-header-row .mat-mdc-header-cell {
   background: var(--app-surface-muted);
 }
 

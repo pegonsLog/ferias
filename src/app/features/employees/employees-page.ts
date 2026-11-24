@@ -23,6 +23,7 @@ import { ConfirmService } from '../../shared/ui/confirm-dialog';
 import { EmptyState } from '../../shared/ui/empty-state';
 import { NotificationService } from '../../shared/ui/notification-service';
 import { PageHeader } from '../../shared/ui/page-header';
+import { VisibleRows } from '../../shared/ui/visible-rows';
 import type { EmployeeFormData, EmployeeFormResult } from './employee-form-dialog';
 
 const dateKey = (value: string) => {
@@ -53,6 +54,7 @@ const ACCESSORS: SortAccessors<Employee> = {
     MatProgressBarModule,
     PageHeader,
     EmptyState,
+    VisibleRows,
   ],
   templateUrl: './employees-page.html',
   styleUrl: './employees-page.scss',

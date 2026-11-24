@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { toDayNumber, today } from '../../domain/dates';
 import { SortAccessors, SortState, sortRows } from '../../domain/sort';
+import { VisibleRows } from '../../shared/ui/visible-rows';
 import {
   VACATION_STATUS_LABELS,
   VacationEntry,
@@ -53,7 +54,14 @@ const VACATION_COLUMNS = [
 /** Tabela de férias com ordenação por coluna e ações de editar/excluir. */
 @Component({
   selector: 'app-vacation-table',
-  imports: [MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    VisibleRows,
+  ],
   templateUrl: './vacation-table.html',
   styleUrl: './vacation-table.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

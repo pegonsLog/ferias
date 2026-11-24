@@ -20,6 +20,7 @@ import { ConfirmService } from '../../shared/ui/confirm-dialog';
 import { EmptyState } from '../../shared/ui/empty-state';
 import { NotificationService } from '../../shared/ui/notification-service';
 import { PageHeader } from '../../shared/ui/page-header';
+import { VisibleRows } from '../../shared/ui/visible-rows';
 import type { UserFormData, UserFormResult } from './user-form-dialog';
 
 const ACCESSORS: SortAccessors<AppUser> = {
@@ -41,6 +42,7 @@ const ACCESSORS: SortAccessors<AppUser> = {
     MatProgressBarModule,
     PageHeader,
     EmptyState,
+    VisibleRows,
   ],
   templateUrl: './users-page.html',
   styleUrl: './users-page.scss',

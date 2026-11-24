@@ -180,7 +180,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 64px;
+  min-height: var(--app-topbar-height);
   padding: 0 20px 0 12px;
   border-bottom: 1px solid var(--app-border);
   background: rgb(255 255 255 / 0.86);
@@ -255,14 +255,10 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 28px 28px 40px;
+  padding: var(--app-page-pad-top) var(--app-page-pad-x) var(--app-page-pad-bottom);
 }
 
 @include bp.handset {
-  .main {
-    padding: 20px 16px 32px;
-  }
-
   .topbar__section,
   .topbar__separator {
     display: none;
