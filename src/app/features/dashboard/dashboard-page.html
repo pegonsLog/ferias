@@ -43,8 +43,8 @@
       <div
         class="card stat"
         [class.stat--highlighted]="highlighted() === 'today'"
-        (mouseenter)="highlighted.set('today')"
-        (mouseleave)="highlighted.set(null)"
+        (mouseenter)="highlight('today', true)"
+        (mouseleave)="highlight('today', false)"
       >
         <span class="stat__icon stat__icon--green"><mat-icon>beach_access</mat-icon></span>
         <span class="stat__value">{{ loading() ? '–' : onVacation().length }}</span>
@@ -54,16 +54,21 @@
         class="card stat"
         routerLink="/ferias/mes"
         [class.stat--highlighted]="highlighted() === 'month'"
-        (mouseenter)="highlighted.set('month')"
-        (mouseleave)="highlighted.set(null)"
-        (focus)="highlighted.set('month')"
-        (blur)="highlighted.set(null)"
+        (mouseenter)="highlight('month', true)"
+        (mouseleave)="highlight('month', false)"
+        (focus)="highlight('month', true)"
+        (blur)="highlight('month', false)"
       >
         <span class="stat__icon stat__icon--violet"><mat-icon>date_range</mat-icon></span>
-        <span class="stat__value">{{ loading() ? '–' : startingThisMonth() }}</span>
+        <span class="stat__value">{{ loading() ? '–' : startingThisMonth().length }}</span>
         <span class="stat__label">Iniciam em {{ monthLabel }}</span>
       </a>
-      <div class="card stat">
+      <div
+        class="card stat"
+        [class.stat--highlighted]="highlighted() === 'next'"
+        (mouseenter)="highlight('next', true)"
+        (mouseleave)="highlight('next', false)"
+      >
         <span class="stat__icon stat__icon--amber"><mat-icon>upcoming</mat-icon></span>
         <span class="stat__value">{{ loading() ? '–' : nextVacations().length }}</span>
         <span class="stat__label">Começam nos próximos 30 dias</span>
@@ -89,7 +94,9 @@
                 <span class="avatar">{{ initials(entry.name) }}</span>
                 <span class="people__text">
                   <span class="people__name">{{ entry.name }}</span>
-                  <span class="people__meta">Até {{ entry.endVacation }}</span>
+                  <span class="people__meta"
+                    >Até {{ shortDate(entry.end, entry.endVacation) }}</span
+                  >
                 </span>
                 <span class="badge badge--success">
                   {{ daysLeft(entry) }}
@@ -109,10 +116,45 @@
       <article class="card panel" [class.panel--highlighted]="highlighted() === 'month'">
         <header class="card__header">
           <div>
+            <h3 class="card__title">Iniciam em {{ monthLabel }}</h3>
+            <p class="card__subtitle">Férias com início neste mês</p>
+          </div>
+          <a mat-button routerLink="/ferias/mes">Ver mês</a>
+        </header>
+        @if (loading()) {
+          <mat-progress-bar class="card__loading" mode="indeterminate" />
+        } @else if (monthPreview().length === 0) {
+          <app-empty-state icon="date_range" [heading]="'Nenhuma férias inicia em ' + monthLabel" />
+        } @else {
+          <ul class="people">
+            @for (entry of monthPreview(); track entry.id) {
+              <li class="people__item">
+                <span class="avatar">{{ initials(entry.name) }}</span>
+                <span class="people__text">
+                  <span class="people__name">{{ entry.name }}</span>
+                  <span class="people__meta">
+                    {{ shortDate(entry.start, entry.startVacation) }} a
+                    {{ shortDate(entry.end, entry.endVacation) }} · {{ entry.totalDays }} dias
+                  </span>
+                </span>
+                <span class="badge" [class]="statusTone(entry)">{{ statusLabel(entry) }}</span>
+              </li>
+            }
+          </ul>
+          @if (startingThisMonth().length > monthPreview().length) {
+            <p class="panel__more muted">
+              e mais {{ startingThisMonth().length - monthPreview().length }}
+            </p>
+          }
+        }
+      </article>
+
+      <article class="card panel" [class.panel--highlighted]="highlighted() === 'next'">
+        <header class="card__header">
+          <div>
             <h3 class="card__title">Próximas férias</h3>
             <p class="card__subtitle">Início nos próximos 30 dias</p>
           </div>
-          <a mat-button routerLink="/ferias/mes">Ver mês</a>
         </header>
         @if (loading()) {
           <mat-progress-bar class="card__loading" mode="indeterminate" />
@@ -126,7 +168,8 @@
                 <span class="people__text">
                   <span class="people__name">{{ entry.name }}</span>
                   <span class="people__meta">
-                    {{ entry.startVacation }} a {{ entry.endVacation }} · {{ entry.totalDays }} dias
+                    {{ shortDate(entry.start, entry.startVacation) }} a
+                    {{ shortDate(entry.end, entry.endVacation) }} · {{ entry.totalDays }} dias
                   </span>
                 </span>
                 <span class="badge badge--info">
